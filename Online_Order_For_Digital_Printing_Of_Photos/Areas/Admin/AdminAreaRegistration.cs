@@ -2,7 +2,7 @@
 
 namespace Online_Order_For_Digital_Printing_Of_Photos.Areas.Admin
 {
-    public class AdminAreaRegistration : AreaRegistration 
+    public class UsersAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {

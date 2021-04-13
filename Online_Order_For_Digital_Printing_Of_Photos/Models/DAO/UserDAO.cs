@@ -1,4 +1,4 @@
-﻿using Online_Order_For_Digital_Printing_Of_Photos.Areas.Users.Models;
+﻿using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews;
 using Online_Order_For_Digital_Printing_Of_Photos.Models.Entities;
 using System;
 using System.Collections.Generic;

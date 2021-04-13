@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Online_Order_For_Digital_Printing_Of_Photos.Areas.Users.Models
+namespace Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews
 {
     public class UserModelView
     {
