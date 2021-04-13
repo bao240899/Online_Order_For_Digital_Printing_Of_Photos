@@ -334,6 +334,7 @@ Online_Order_For_Digital_Printing_Of_Photos/obj/Debug/Online_Order_For_Digital_P
 *.ps1
 *.exe
 .vs/Online_Order_For_Digital_Printing_Of_Photos/v16/.suo
+<<<<<<< Updated upstream
 App_Start/BundleConfig.cs
 App_Start/FilterConfig.cs
 bin/Antlr3.Runtime.pdb
@@ -357,3 +358,34 @@ packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1/tools/RoslynLa
 packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1/tools/RoslynLatest/Microsoft.Managed.Core.targets
 packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1/tools/RoslynLatest/Microsoft.VisualBasic.Core.targets
 packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1/tools/RoslynLatest/vbc.rsp
+=======
+*.pdb
+*.rsp
+*.targets
+App_Start/BundleConfig.cs
+App_Start/FilterConfig.cs
+>>>>>>> Stashed changes
+App_Start/RouteConfig.cs
+Areas/Admin/AdminAreaRegistration.cs
+Areas/Admin/Controllers/AdminController.cs
+Areas/Admin/Views/_ViewStart.cshtml
+Areas/Admin/Views/Admin/Index.cshtml
+Areas/Admin/Views/Shared/_Layout.cshtml
+Content/bootstrap-theme.css
+Content/bootstrap-theme.css.map
+Content/bootstrap-theme.min.css
+Content/bootstrap-theme.min.css.map
+Content/bootstrap.css
+Content/bootstrap.css.map
+Content/bootstrap.min.css
+Content/bootstrap.min.css.map
+Content/Site.css
+Controllers/HomeController.cs
+favicon.ico
+fonts/glyphicons-halflings-regular.eot
+fonts/glyphicons-halflings-regular.svg
+fonts/glyphicons-halflings-regular.ttf
+fonts/glyphicons-halflings-regular.woff
+fonts/glyphicons-halflings-regular.woff2
+Global.asax
+Global.asax.cs
