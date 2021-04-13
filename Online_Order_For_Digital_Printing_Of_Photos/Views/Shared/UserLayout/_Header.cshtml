@@ -1,0 +1,90 @@
+﻿@using Online_Order_For_Digital_Printing_Of_Photos.Common
+<header>
+    <div class="container">
+        <div class="header-container">
+            <nav>
+                <ul>
+                    <li><a href="~/" title="">Home</a></li>
+                    <li>
+                        <a href="~/Image" title="">Photos</a>
+                    </li>
+                </ul>
+            </nav><!-- Navigation -->
+            @{
+                var session = (UserSession)Session[CommonConstant.USER_SESSION];
+
+            }
+            @if (session == null)
+            {
+                <div class="header-links">
+                    <ul list-unstyled>
+                        <li><a href="~/Home/Login" title="">Log in</a></li>
+                        <li><a href="~/Home/SignUp" title="">Sign up</a></li>
+                        <li><a href="~/Cart" title="">Cart (0)</a></li>
+                    </ul>
+                </div><!-- Header Links -->
+
+            }
+            else
+            {
+                <div class="header-links">
+                    <ul class="list-unstyled">
+                        <li><a href="~/Cart" title="">Cart (0)</a></li>
+                        <li>
+                            @*@Html.ActionLink("My Profile", "Profile", "User", new { id = session.userID }, "")*@
+                            <a href="~/User/Profile/@session.userID">My Profile</a>
+                        </li>
+                        <li>
+                            <a role="menuitem" href="~/Home/Logout"><i class="fa fa-power-off"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div><!-- Header Links -->
+
+
+            }
+        </div>
+    </div>
+</header><!-- Header -->
+
+<div class="responsive-header">
+    <div class="responsive-bar">
+        <span class="open-menu"><i data-target="menu" class="fa fa-align-center"></i></span>
+        <div class="logo"><a href="~/" title=""><img src="~/Content/OnlineOrderForDigitalrintingOfPhotos/images/slogan.png" alt="Logo" /></a></div><!-- Logo -->
+        <span class="open-links"><i data-target="links" class="fa fa-arrow-right"></i></span>
+    </div>
+    <div class="responsive-links menu">
+        <ul>
+            <li><a href="~/" title="">Home</a></li>
+            <li class="">
+                @*menu-item-has-children*@
+                <a href="~/Image" title="">Images</a>
+            </li>
+        </ul>
+    </div>
+    @if (session == null)
+    {
+        <div class="responsive-links other">
+            <ul>
+                <li><a href="~/Cart"><i class="fa fa-shopping-cart"></i>Cart (0)</a></li>
+                <li><a href="~/Home/Login" title="">Log in</a></li>
+                <li><a href="~/Home/SignUp" title="">Sign up</a></li>
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div class="responsive-links other">
+            <ul>
+                <li><a href="~/Cart"><i class="fa fa-shopping-cart"></i>Cart (0)</a></li>
+                <li>
+                    @*@Html.ActionLink("My Profile", "Profile", "User", new { id = session.userID }, "")*@
+                    <a href="~/User/Profile/@session.userID">My Profile</a>
+                </li>
+                <li>
+                    <a role="menuitem" href="~/Home/Logout"><i class="fa fa-power-off"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    }
+
+</div><!-- Responsive Header -->

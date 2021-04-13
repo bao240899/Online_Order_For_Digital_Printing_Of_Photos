@@ -24,5 +24,39 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
 
             return rs;
         }
+
+
+
+        public Users GetUserByUserName(string username)
+        {
+            return entities.Users.SingleOrDefault(x => x.userName == username);
+        }
+
+        public int Login(string username, string password)
+        {
+            var res = entities.Users.SingleOrDefault(x => x.userName == username);
+            if (res == null)
+            {
+                return 0;
+            }
+            else
+            {
+                if (res.status == 0)
+                {
+                    return -1;
+                }
+                else
+                {
+                    if (res.userPwd == password)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return -2;
+                    }
+                }
+            }
+        }
     }
 }
