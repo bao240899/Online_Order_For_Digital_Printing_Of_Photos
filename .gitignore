@@ -390,3 +390,4 @@ fonts/glyphicons-halflings-regular.woff2
 Global.asax
 Global.asax.cs
 Online_Order_For_Digital_Printing_Of_Photos/Models/Entities/
+*.p7s
