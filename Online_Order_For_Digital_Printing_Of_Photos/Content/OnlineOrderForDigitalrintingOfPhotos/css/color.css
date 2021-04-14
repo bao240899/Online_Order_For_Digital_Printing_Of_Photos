@@ -1,0 +1,72 @@
+nav ul li a:before,
+.header-links > ul li a:hover,
+.info-box span,
+.option-set li a.selected,
+.free-download > span a,
+.widget > ul li a:hover,
+.image-links > a:hover,
+.cat > a:hover,
+.filteration li.active a,
+.dropbox > ul li:hover a,
+.size:hover > span,.size.active > span,
+.size:hover > strong,.size.active > strong,
+.post-detail h3 a:hover,
+.review-inner span i,
+.single-img-detail span.img-id,
+.account-tabs .nav li.active a,
+.plan a:hover, 
+.profile-info div a,
+.billing-info > a,
+.summary ul li strong,
+nav ul li:hover > a,
+.theme-btn:before,
+.img-id,
+.selectbox > i,
+.post-meta > li a:hover,
+.tags > span,
+.tags > a:hover,
+.comment > h3 a:hover,
+.comment-options > h6 a,
+.images-category ul li a:hover,
+.button:hover,
+.wishlist-btn a:hover{
+	color:#d82521;
+}
+
+
+.main-tabber .custom-tabs li.active a,
+.main-search form button,
+.package:before,.package:after,
+.theme-btn,
+.field.field-button input,
+.buy:before,
+.package > strong a,
+.pages > a:hover,
+.rangeslider__fill,
+.rangeslider__handle,
+.apply-credit form button,
+.size:before,
+.post-detail > a:hover,
+.button,
+.remove-item:hover,
+.buy,
+.all-services h3 span,
+.images-widget a:before,
+.popup-container span.close-popup,
+.wishlist-btn a{
+	background:#d82521;
+}
+
+.images-category ul li:after,
+nav ul li ul,
+.lang-selector > ul{
+	border-color:#d82521;
+}
+
+.dropbox > ul li:hover:before{
+	border-left-color:#d82521;
+}
+
+.ac-custom svg path{
+	stroke: #d82521;	
+}

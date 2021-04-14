@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="shortcut icon" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/images/ico.ico" />
+
+    @* awesome *@
+    <script src="https://kit.fontawesome.com/42bfae4a67.js" crossorigin="anonymous"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/icons.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/color.css" />
+
+    <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
+    <link rel="stylesheet" type="text/css" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/extralayers.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/settings.css" media="screen" />
+
+
+
+</head>
+<body>
+    <!--header_top-->
+    @*@Html.Partial("~/Views/Shared/UserLayout/_Header_Top.cshtml")*@
+
+    <!--header-->
+    @Html.Partial("~/Views/Shared/UserLayout/_Header.cshtml")
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <!--footer_top-->
+    @*@Html.Partial("~/Views/Shared/UserLayout/_Footer_top.cshtml")*@
+    <!--footer-->
+    @Html.Partial("~/Views/Shared/UserLayout/_Footer.cshtml")
+
+
+    <script src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/jquery.min.js" type="text/javascript"></script>
+
+    <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+    <script type="text/javascript" src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/revolution/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/revolution/jquery.themepunch.revolution.min.js"></script>
+
+    <script src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/enscroll-0.5.2.min.js" type="text/javascript"></script>
+    <script src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/jquery.scrolly.js" type="text/javascript"></script>
+    <script src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/jquery.isotope.min.js"></script>
+    <script src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/isotope-initialize.js"></script>
+    <script src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/script.js" type="text/javascript"></script>
+    @* ckfinder *@
+    <script src="~/Content/ckfinder/ckfinder.js"></script>
+    @*<script src="~/Scripts/main.js"></script>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            jQuery('.tp-banner').show().revolution({
+                delay: 15000,
+                startwidth: 1170,
+                startheight: 540,
+                autoHeight: "off",
+                navigationType: "none",
+                hideThumbs: 10,
+                fullWidth: "on",
+                fullScreen: "on",
+                fullScreenOffsetContainer: ""
+            });
+
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+    @RenderSection("jsFooter", required: false)
+</body>
+</html>
