@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,7 +9,11 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews
     public class UserModelView
     {
         public int userID { get; set; }
+        [Required(ErrorMessage = "Please Enter Your UserName")]
+        [Display(Name ="User Name")]
         public string userName { get; set; }
+        [Display(Name = "Password")]
+        [Required(ErrorMessage = "Please enter your Password")]
         public string userPwd { get; set; }
         public string email { get; set; }
         public string address { get; set; }

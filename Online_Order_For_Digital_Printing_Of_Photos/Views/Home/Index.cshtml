@@ -1,31 +1,163 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.PhotoModel>
+@using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div class="class=" theme-layout"">
+    <section>
+        <div class="block no-padding">
+            <div class="row">
+                <div class="col-md-12 column">
+                    <div class="main-section">
+                        @Html.Partial("~/Views/Shared/UserLayout/_Slide.cshtml")
+                        <div class="site-info-bar">
+                            <div class="info-box">
+                                <i class="fa fa-upload"></i>
+                                <span>Total Photos</span>
+                                @{
+                                    var totalPhoto = Model.Count();
+                                }
+                                <strong>@totalPhoto</strong>
+                            </div><!-- Info Box -->
+                            <div class="info-box">
+                                <i class="fa fa-user"></i>
+                                <span>Our Users</span>
+                                <strong>40,933</strong>
+                            </div><!-- Info Box -->
+                            <div class="info-box">
+                                <i class="fa fa-phone"></i>
+                                <span>Call Us</span>
+                                <strong>123 456 789</strong>
+                            </div><!-- Info Box -->
+                        </div><!-- Site Info Bar -->
+                    </div><!-- Main Section -->
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    <section style="margin-top: 1%">
+        <div class="block remove-gap">
+            <div class="row ">
+                <div class="col-md-12 column">
+                    <div class="title center">
+                        <h2>Top Categories</h2>
+                        <i>You can select from the key</i>
+                    </div>
+
+                    <div class="options">
+                        <div class="option-combo">
+                            <ul id="filter" class="option-set" data-option-key="filter">
+                                <li><a href="#showall" data-option-value="*" class="selected">Show all</a></li>
+                                <li><a href="#category1" data-option-value=".category1">Photos</a></li>
+                                <li><a href="#category2" data-option-value=".category2">Vectors</a></li>
+                                <li><a href="#category2" data-option-value=".category3">Editorial</a></li>
+                                <li><a href="#category3" data-option-value=".category4">Illustrations</a></li>
+                                <li><a href="#category4" data-option-value=".category5">Footage</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- FILTER BUTTONS -->
+
+                    <div class="row narrow">
+                        <div class="masonary">
+                            @*@{
+                                var cate = new CateDao().cateList();
+                            }*@
+                            @foreach (var item in Model)
+                            {
+                                //if (item.status != 0)
+                                //{
+                                    <div class="col-md-3 category1">
+                                        <div class="image-box">
+                                            @* 384x282 *@
+                                            <a href="" title="@item.photoName"><img src="@item.photoLink" alt="Photo" height="282" /></a>
+                                            <span class="image-name">
+                                                <a href="#" class="list-unstyled" style="color:#ffffff">@item.photoName</a>
+                                            </span>
+                                            @*@foreach (var x in cate)
+                                            {
+                                                if (x.cateID == item.cateID)
+                                                {*@
+                                                    <span class="image-license"> @item.photoName </span>
+                                                @*}
+                                            }*@
+                                            <div class="image-links">
+                                                <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
+                                                <a href="#" title=""><i class="fa fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @*  *@}
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="block remove-gap">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-md-8 column">
+                        <div class="title">
+                            <h2>Free Content Every Week.</h2>
+                            <i>You can select from the key</i>
+                            <p>Search for images anywhere using our award-winning iPad®, iPhone®, and Android® apps. Functional enough to use alone, beautiful enough to show off to clients. </p>
+                        </div>
+                        <div class="free-images">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="free-download">
+                                        <img src="http://placehold.it/228x220" alt="" />
+                                        <strong>Free Vector of the Week</strong>
+                                        <span><a href="#" title="">Download</a></span>
+                                    </div><!-- Free Download -->
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="free-download">
+                                        <img src="http://placehold.it/228x220" alt="" />
+                                        <strong>Free Vector of the Week</strong>
+                                        <span><a href="#" title="">Download</a></span>
+                                    </div><!-- Free Download -->
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="free-download">
+                                        <img src="http://placehold.it/228x220" alt="" />
+                                        <strong>Free Vector of the Week</strong>
+                                        <span><a href="#" title="">Download</a></span>
+                                    </div><!-- Free Download -->
+                                </div>
+                            </div>
+                            <div class="view-all">
+                                <a data-letters="View All" class="theme-btn small" href="#" title="">View All</a>
+                            </div>
+                        </div><!-- Free Images -->
+                    </div>
+                    <div class="col-md-4 column">
+                        <div class="form-box">
+                            <div class="title">
+                                <h2>Sign Up</h2>
+                                <i>You can select from the key</i>
+                            </div>
+                            <form class="registration-form">
+                                <div class="row">
+                                    <div class="col-md-12"><div class="field"><i class="ti-user"></i><input type="text" placeholder="Name" /></div></div>
+                                    <div class="col-md-12"><div class="field"><i class="ti-envelope"></i><input type="email" placeholder="Email Address" /></div></div>
+                                    <div class="col-md-12"><div class="field"><i class="ti-key"></i><input type="password" placeholder="Password" /></div></div>
+                                    <div class="col-md-12"><div class="field choice"><input type="checkbox" name="check" /><label>I agree to Shutterstock's Website Terms, Privacy Policy, Licensing Terms and to receive emails that I can opt out of at any time.</label></div></div>
+                                    <div class="col-md-12"><div class="field field-button"><input type="submit" value="Create Account" /></div></div>
+                                </div>
+                            </form>
+                        </div><!-- Sing Up Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

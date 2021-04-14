@@ -1,4 +1,4 @@
-﻿@using Online_Order_for_digital_printing_of_Photos.Common
+﻿@using Online_Order_For_Digital_Printing_Of_Photos.Common
 <header>
     <div class="container">
         <div class="header-container">
@@ -11,7 +11,7 @@
                 </ul>
             </nav><!-- Navigation -->
             @{
-                var session = (UserLogin)Session[Online_Order_for_digital_printing_of_Photos.Common.CommonConstant.USER_SESSION];
+                var session = (UserSession)Session[CommonConstant.USER_SESSION];
 
             }
             @if (session == null)
