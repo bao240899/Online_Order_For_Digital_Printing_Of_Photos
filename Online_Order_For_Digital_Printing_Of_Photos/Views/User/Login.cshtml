@@ -1,4 +1,4 @@
-﻿@model Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.UserModelView
+﻿@model Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.LoginModelView
 
 @{
     ViewBag.Title = "Login";
@@ -9,7 +9,7 @@
     <div class="title" style="text-align: center; margin-bottom: 1.5em">
         <h2>LOGIN</h2>
     </div>
-    @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "registration-form", @style = "padding: 0 40% 0 40%;" }))
+    @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "registration-form", @style = "padding: 0 40% 0 40%;" }))
     {
         @Html.AntiForgeryToken()
         <hr />
@@ -24,7 +24,6 @@
             </div>
 
             <div class="col-md-12 form-group">
-                @*@Html.LabelFor(model => model.userPwd, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="field">
                     <i class="ti-key"></i>
                     @Html.PasswordFor(model => model.userPwd, new { @class = "form-control", @type = "password", @placeholder = "Password" })

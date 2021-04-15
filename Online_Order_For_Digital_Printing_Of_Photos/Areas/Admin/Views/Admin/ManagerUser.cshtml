@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Online_Order_For_Digital_Printing_Of_Photos.Areas.Admin.Models.ManagerUserModelView>
+
+@{
+    ViewBag.Title = "ManagerUser";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout/Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.userID)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.role)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @{string temp = "disabled";}
+         @if (item.status == 1)
+            {
+                temp = "enable";
+            }    
+        <td>
+            @Html.HiddenFor(modelItem => item.userID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => temp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.role)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @{temp = "disabled";}
+            @if (item.status == 0)
+            {
+                temp = "enable";
+            }
+            @Html.ActionLink(temp, "ChangeStatus", new { id = item.userID }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+
+        </td>
+    </tr>
+}
+
+</table>

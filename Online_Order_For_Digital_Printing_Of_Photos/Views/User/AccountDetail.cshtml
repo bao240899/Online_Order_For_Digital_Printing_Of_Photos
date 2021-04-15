@@ -1,0 +1,162 @@
+﻿@model Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.UserModelView
+
+@{
+    ViewBag.Title = "AccountDetail";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+}
+
+<section>
+    <div class="block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 column">
+                    <div class="title center">
+                        <h2>Your Account </h2>
+                        <i>You can select from the key</i>
+                    </div>
+                    <div class="account-tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#plan"><i class="fa fa-bolt"></i>Plan</a></li>
+                            <li><a data-toggle="tab" href="#profile"><i class="fa fa-gg"></i> Profile</a></li>
+                            <li><a data-toggle="tab" href="#billing"><i class="fa fa-object-ungroup"></i> Billing</a></li>
+                            <li><a data-toggle="tab" href="#purchase-history"><i class="fa fa-tripadvisor"></i> Purchase History</a></li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div id="plan" class="tab-pane fade in active">
+                                <div class="plan">
+                                    <div class="row">
+                                        <div class="col-md-8 column">
+                                            <h5 class="border-title">PLANS:</h5>
+                                            <h6 class="sub-title">My Images Plan</h6>
+                                            <ul>
+                                                <li>1 Month, 750 Downloads per Month</li>
+                                                <li>Standard License</li>
+                                                <li>Standard License</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4 column">
+                                            <div class="plan-info">
+                                                <span>Plan Expires:</span>
+                                                <strong>27 days</strong>
+                                                <span>Downloads Remaining:</span>
+                                                <strong>689 / 750 today</strong>
+                                            </div>
+                                            <a href="#" title="">View Next Plan</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="profile" class="tab-pane fade">
+                                <div class="profile-info">
+                                    <ul>
+                                        <li><strong>USERNAME:</strong><span>@Model.name</span></li>
+                                        <li>
+                                            <strong>PASSWORD:</strong>
+                                            <div>
+                                                <a class="change" href="#" title="" data-title="Change Your password" data-change="Cancel">Change Your password</a>
+                                                @using (Html.BeginForm("ChangePwd", "User", FormMethod.Post, new { @class = "", @style = "" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="field">
+                                                                <i class="ti-key"></i>
+                                                                @Html.HiddenFor(model => model.userID, new { htmlAttributes = new { @class = "form-control", Value = Model.userID } })
+                                                                @Html.EditorFor(model => model.userPwd, new { htmlAttributes = new { @class = "", @placeholder = "Enter New Password" } })
+                                                                @Html.ValidationMessageFor(model => model.userPwd, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="field">
+                                                                <i class="ti-key"></i>
+                                                                @Html.EditorFor(model => model.confirmPassword, new { htmlAttributes = new { @class = "",@placeholder = " Enter Confirm Password" } })
+                                                                @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12"><div class="field button"><input type="submit" value="Change Password" /></div></div>
+                                                    </div>
+                                                }
+                                                </div>
+                                        </li>
+                                        <li>
+                                            <strong>EMAIL:</strong><div>
+                                                @Model.email <a class="change" href="#" title="" data-title="Change Email" data-change="Cancel">Change Email</a>
+                                                @using (Html.BeginForm("ChangeEmail", "User", FormMethod.Post, new { @class = "", @style = "" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="field">
+                                                                <i class="ti-key"></i>
+                                                                @Html.HiddenFor(model => model.userID, new { htmlAttributes = new { @class = "form-control", Value = Model.userID } })
+                                                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "", @placeholder = "Enter New Email" } })
+                                                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                        <div class="field button">
+                                                            <input type="submit" value="Change Email" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <strong>CONTACT INFORMATION</strong><div>
+                                                <br />@Model.address<br /><a class="change" href="#" title="" data-title="Change Address" data-change="Cancel">Change Address</a>
+                                                @using (Html.BeginForm("ChangeAddress", "User", FormMethod.Post, new { @class = "", @style = "" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="field">
+                                                                <i class="ti-key"></i>
+                                                                @Html.HiddenFor(model => model.userID, new { htmlAttributes = new { @class = "form-control", Value = Model.userID } })
+                                                                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "" }, @placeholder = "Enter New Adress" })
+                                                                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                        <div class="field button">
+                                                            <input type="submit" value="Change Address" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="billing" class="tab-pane fade">
+                                <div class="billing">
+                                    <h5 class="sub-title">IMAGE PAYMENT METHOD</h5>
+                                    <div class="billing-info">
+                                        <span><img src="images/visa.jpg" alt="" /> xxxxxxxxx888</span>
+                                        <span>Expires 11/2016</span>
+                                        <a href="#" title="">Change</a>
+                                    </div>
+                                    <h5 class="sub-title">IMAGE PAYMENT METHOD</h5>
+                                    <div class="billing-info">
+                                        <span>JLance Norris 2530<br /> Marigold Lane Boca Raton, FL 33487 <br />London</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="purchase-history" class="tab-pane fade">
+                                <div class="purchase-history">
+                                    <strong class="purchase-date">Date</strong>
+                                    <strong class="purchase-desc">Description</strong>
+                                    <strong class="purchase-total">Total</strong>
+                                    <span class="purchase-date">19/5/2015</span>
+                                    <span class="purchase-desc">30-day Subscription, Standard License with 750 Downloads per Month</span>
+                                    <span class="purchase-total">US$ 199.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

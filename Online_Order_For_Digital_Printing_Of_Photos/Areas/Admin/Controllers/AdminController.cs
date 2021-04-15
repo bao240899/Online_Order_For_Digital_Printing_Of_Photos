@@ -1,4 +1,5 @@
 ﻿using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO;
+using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +11,29 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         //declare dao
-        public UserDAO userDAO = null;
+        public UserDAO userDao = null;
         // Call Model in Dao
         public AdminController() {
             // new DAO
-            userDAO = new UserDAO();
+            userDao = new UserDAO();
         }
         public ActionResult Index()
         {
-            // user Model
-            var rs = userDAO.ShowAllUser();
-            // use Viewbag, viewdata, viewResult to give data to view
-            // viewbag chi co quen tuy cap trong 1 controller
-            // check session, ModelView, ...
-            ViewBag.abc = "bao dep trai";
+            return View();
+        }
+
+        public ActionResult ManagerUser()
+        {
+            var rs = userDao.ListUserToManager();
             return View(rs);
+        }
+       
+        public ActionResult ChangeStatus(int id) {
+            var rs = userDao.ChangeStatusByID(id);
+            if (rs == 0) {
+                return RedirectToAction("Index", "Admin");
+            }
+            return RedirectToAction("ManagerUser","Admin");
         }
     }
 }

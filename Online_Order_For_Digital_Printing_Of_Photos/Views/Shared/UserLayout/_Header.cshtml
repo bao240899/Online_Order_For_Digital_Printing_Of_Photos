@@ -18,8 +18,8 @@
             {
                 <div class="header-links">
                     <ul list-unstyled>
-                        <li><a href="~/Home/Login" title="">Log in</a></li>
-                        <li><a href="~/Home/SignUp" title="">Sign up</a></li>
+                        <li><a href="~/User/Login" title="">Log in</a></li>
+                        <li><a href="~/User/SignUp" title="">Sign up</a></li>
                         <li><a href="~/Cart" title="">Cart (0)</a></li>
                     </ul>
                 </div><!-- Header Links -->
@@ -32,16 +32,17 @@
                         <li><a href="~/Cart" title="">Cart (0)</a></li>
                         <li>
                             @*@Html.ActionLink("My Profile", "Profile", "User", new { id = session.userID }, "")*@
-                            <a href="~/User/Profile/@session.userID">My Profile</a>
+                            <a href="~/User/AccountDetail">My Profile</a>
                         </li>
                         <li>
-                            <a role="menuitem" href="~/Home/Logout"><i class="fa fa-power-off"></i> Logout</a>
+                            <a role="menuitem" href="~/User/Logout"><i class="fa fa-power-off"></i> Logout</a>
                         </li>
                     </ul>
                 </div><!-- Header Links -->
 
 
             }
+            
         </div>
     </div>
 </header><!-- Header -->
