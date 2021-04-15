@@ -5,15 +5,14 @@
     Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
 }
 
-<section>
+
+<section style="margin: 0; padding:0">
+    @Html.Partial("~/Views/Shared/UserLayout/_Sidebar.cshtml")
     <div class="block">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1 column">
-                    <div class="title center">
-                        <h2>Your Account </h2>
-                        <i>You can select from the key</i>
-                    </div>
+
                     <div class="account-tabs">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#plan"><i class="fa fa-bolt"></i>Plan</a></li>
@@ -69,14 +68,14 @@
                                                         <div class="col-md-12">
                                                             <div class="field">
                                                                 <i class="ti-key"></i>
-                                                                @Html.EditorFor(model => model.confirmPassword, new { htmlAttributes = new { @class = "",@placeholder = " Enter Confirm Password" } })
+                                                                @Html.EditorFor(model => model.confirmPassword, new { htmlAttributes = new { @class = "", @placeholder = " Enter Confirm Password" } })
                                                                 @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12"><div class="field button"><input type="submit" value="Change Password" /></div></div>
                                                     </div>
                                                 }
-                                                </div>
+                                            </div>
                                         </li>
                                         <li>
                                             <strong>EMAIL:</strong><div>
@@ -94,8 +93,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
-                                                        <div class="field button">
-                                                            <input type="submit" value="Change Email" />
+                                                            <div class="field button">
+                                                                <input type="submit" value="Change Email" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -118,8 +117,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
-                                                        <div class="field button">
-                                                            <input type="submit" value="Change Address" />
+                                                            <div class="field button">
+                                                                <input type="submit" value="Change Address" />
                                                             </div>
                                                         </div>
                                                     </div>

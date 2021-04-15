@@ -1,9 +1,8 @@
 ﻿using Online_Order_For_Digital_Printing_Of_Photos.Common;
 using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO;
-<<<<<<< HEAD
+
 using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews;
-=======
->>>>>>> Lam
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
 {
-<<<<<<< HEAD
+
     public class UserController : Controller
     {
         UserDAO userDao = null;
@@ -24,8 +23,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         }
         public ActionResult Login()
         {
-
-
             return View();
         }
         [HttpPost]
@@ -61,7 +58,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                         userSession.name = user.name;
                         Session.Add(CommonConstant.USER_SESSION, userSession);
                         TempData["notice"] = "Successfully registered";
-                        return RedirectToAction("Index", "Admin", new { Area = "Admin"});
+                        return RedirectToAction("Index", "Admin", new { Area = "Admin" });
                     }
                 }
                 else if (res == 0)
@@ -162,13 +159,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                 return RedirectToAction("Login", "User");
             }
             return RedirectToAction("AccountDetail", "User");
-=======
-    public class UserController : BaseController
-    {
-        public new ActionResult Profile(int id)
-        {
-            var model = new UserDAO().GetUserByUserid(id);
-            return View(model);
         }
 
         public ActionResult MyPhoto()
@@ -177,7 +167,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
             var userID = session.userID;
             var model = new PhotoDAO().GetPhotoByUserid(userID);
             return View(model);
->>>>>>> Lam
         }
     }
 }
