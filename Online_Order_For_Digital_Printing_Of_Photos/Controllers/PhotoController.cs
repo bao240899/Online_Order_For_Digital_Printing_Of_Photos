@@ -39,6 +39,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                 //photo.cateID = cate;
                 ////save
                 //pt.Insert(photo);
+                //s
             }
             return View("Show");
         }
