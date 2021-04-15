@@ -42,6 +42,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                         userSession.userPwd = user.userPwd;
                         userSession.role = user.role;
                         userSession.name = user.name;
+                        userSession.status = user.status;
                         Session.Add(CommonConstant.USER_SESSION, userSession);
                         return RedirectToAction("Index", "Home");
                     }

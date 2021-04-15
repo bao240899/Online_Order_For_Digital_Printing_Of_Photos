@@ -18,6 +18,24 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             entities = new OnlineOrderEntities();
         }
 
+        public UserModelView GetUserByUserid(int userid)
+        {
+            var res = entities.Users.Select(x => new UserModelView
+            {
+                userID = x.userID,
+                userName = x.userName,
+                userPwd = x.userPwd,
+                email = x.email,
+                address = x.address,
+                status = x.status,
+                role = x.role,
+                name = x.name
+
+            }).SingleOrDefault(x=>x.userID == userid);
+
+            return res;
+        }
+
         // show All User
         public List<UserModelView> ShowAllUser()
         {
