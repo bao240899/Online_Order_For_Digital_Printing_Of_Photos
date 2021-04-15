@@ -20,8 +20,32 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             // new in constructor
             entities = new OnlineOrderEntities();
         }
+<<<<<<< HEAD
         // show ////////
         public List<UserModelView> ListUserByName()
+=======
+
+        public UserModelView GetUserByUserid(int userid)
+        {
+            var res = entities.Users.Select(x => new UserModelView
+            {
+                userID = x.userID,
+                userName = x.userName,
+                userPwd = x.userPwd,
+                email = x.email,
+                address = x.address,
+                status = x.status,
+                role = x.role,
+                name = x.name
+
+            }).SingleOrDefault(x=>x.userID == userid);
+
+            return res;
+        }
+
+        // show All User
+        public List<UserModelView> ShowAllUser()
+>>>>>>> Lam
         {
             var rs = entities.Users.Select(d => new UserModelView { userID = (int)d.userID, userName = d.userName, userPwd = d.userPwd, email = d.email, address = d.address, status = d.status, role = d.role, name = d.name }).ToList();
             return rs;

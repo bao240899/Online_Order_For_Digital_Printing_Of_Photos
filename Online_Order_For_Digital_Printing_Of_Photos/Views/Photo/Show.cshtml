@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.PhotoModel>
+
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+}
+
+<h2>Show</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.photoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.photoName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cateID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.photoLink)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.photoID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.photoName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cateID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.photoLink)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

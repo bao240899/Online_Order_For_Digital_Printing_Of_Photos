@@ -15,12 +15,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
             if (session == null)
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Login", Area = "User" }));
-            }
-            else if (session.role == "user")
-            {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index", Area = "User" }));
-
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Login" }));
             }
             base.OnActionExecuting(filterContext);
         }

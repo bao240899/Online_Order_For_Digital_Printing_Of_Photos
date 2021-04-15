@@ -1,0 +1,117 @@
+﻿@model Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.ViewUserPhotoModel
+@using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
+
+@{
+    ViewBag.Title = "CreatePhoto";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+    var cate = new CateDAO().GetAllCategory();
+    var format = new formatDAO().GetAllFormat();
+}
+
+
+@section jsFooter{
+    <script>
+        $('#btnSelectPt').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#txtPhoto').val(url);
+            };
+            finder.popup();
+        })
+    </script>
+}
+@section scripts{
+    <script>
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+
+    </script>
+}
+
+@Html.Partial("~/Views/Shared/UserLayout/_Sidebar.cshtml")
+<div class="panel-body">
+    @using (Html.BeginForm("CreatePhoto", "Photo", FormMethod.Post, new { @class = "form-horizontal form-bordered" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h1 style="text-align: center;">Create Photos</h1>
+            <hr />
+
+            @*alert*@
+            @*@Html.Partial("~/Views/Shared/UserLayout/_Alert.cshtml")*@
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.photo.photoName, htmlAttributes: new { @class = "col-md-3 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.photo.photoName, new { @required = "required", @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(model => model.photo.photoName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.photo.description, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-6">
+                    @Html.TextAreaFor(model => model.photo.description, new { @required = "required", @class = "form-control", @style = "height: 100px;" })
+                    @Html.ValidationMessageFor(model => model.photo.description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.photo.cateID, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                <div class="col-md-6">
+                    @*@Html.EditorFor(model => model.cateID, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.photo.cateID, "", new { @class = "text-danger" })
+                    <select name="categories">
+                        @foreach (var item in cate)
+                        {
+                            <option value="@item.cateID">@item.cateName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Upload Photo</label>
+                <div class="col-md-6">
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="input-append">
+                            <div class="uneditable-input">
+                                <span class="fileupload-preview"></span>
+                            </div>
+                            <span class="btn btn-default btn-file">
+                                <input class="form-control" style="margin-bottom: 1%" type="text" id="txtPhoto" name="photoLink" required />
+                                <button id="btnSelectPt">Select Photo</button> <br />
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">Price</label>
+                <div class="col-md-6">
+                    @foreach (var item in format)
+                    {
+                        <input type="text" name="formatID" value="@item.formatID" id="format" hidden />
+                        <label for="format">@item.formatName (@item.width x @item.height)</label>
+                        <input type="text" class="form-control col-md-3" style="margin-bottom: 1%" name="price" required /> <br />
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8" style="text-align:center">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
