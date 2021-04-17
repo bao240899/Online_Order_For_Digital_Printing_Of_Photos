@@ -26,5 +26,17 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             }).ToList();
             return res;
         }
+
+        public List<FormatModel> GetFormatById(int id)
+        {
+            var res = db.Format.Where(x => x.formatID == id).Select(x => new FormatModel
+            {
+                formatID = x.formatID,
+                formatName = x.formatName,
+                width = x.width,
+                height = x.height
+            }).ToList();
+            return res;
+        }
     }
 }

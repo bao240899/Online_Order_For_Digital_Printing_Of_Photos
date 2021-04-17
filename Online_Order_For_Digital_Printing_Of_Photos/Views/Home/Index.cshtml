@@ -1,688 +1,159 @@
-﻿
+﻿@model IEnumerable<Online_Order_For_Digital_Printing_Of_Photos.Models.Entities.Photos>
+@using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+    var cate = new CateDAO().GetAllCategory();
 }
-<body>
-    <div class="theme-layout">
-        <div class="responsive-header">
-            <div class="responsive-bar">
-                <span class="open-menu"><i data-target="menu" class="fa fa-align-center"></i></span>
-                <div class="logo"><a href="#" title=""><img src="images/logo.png" alt="" /></a></div><!-- Logo -->
-                <span class="open-links"><i data-target="links" class="fa fa-arrow-right"></i></span>
-            </div>
-            <div class="responsive-links menu">
-                <ul>
-                    <li><a href="index.html" title="">Home</a></li>
-                    <li class="menu-item-has-children">
-                        <a href="#" title="">Images</a>
-                        <ul>
-                            <li><a href="images-list.html" title="">Images List</a></li>
-                            <li><a href="images-list-sidebar.html" title="">Images List With Sidebar</a></li>
-                            <li><a href="single-page.html" title="">Single Image Page 1</a></li>
-                            <li><a href="single-page2.html" title="">Single Image Page 2</a></li>
-                            <li><a href="download-history.html" title="">Download History</a></li>
-                            <li><a href="freedownloads.html" title="">Free Downloads</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a href="#" title="">Cart</a>
-                        <ul>
-                            <li><a href="cart.html" title="">Cart</a></li>
-                            <li><a href="checkout.html" title="">Checkout</a></li>
-                            <li><a href="wishlist.html" title="">Wishlist</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a href="#" title="">More Pages</a>
-                        <ul>
-                            <li class="menu-item-has-children">
-                                <a href="#" title="">Blog</a>
-                                <ul>
-                                    <li><a href="blog.html" title="">Blog List</a></li>
-                                    <li><a href="blog-single.html" title="">Blog Single</a></li>
-                                    <li><a href="blog-single-sidebar.html" title="">Blog Single With Sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="affiliations.html" title="">Affiliations</a></li>
-                            <li><a href="account-detail.html" title="">Account Details</a></li>
-                            <li><a href="price-package.html" title="">Price Package</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
 
-            <div class="responsive-links other">
-                <ul>
-                    <li><a href="#" title=""><i class="fa fa-shopping-cart"></i>Cart (0)</a></li>
-                    <li><a class="call-reg login-popup" href="#" title="">Log in</a></li>
-                    <li><a class="call-reg signup-popup" href="#" title="">Sign up</a></li>
-                    <li class="menu-item-has-children">
-                        <div class="lang-selector">
-                            <span><img src="images/language1.png" alt="" /> English</span>
-                            <ul>
-                                <li><span><img src="images/language1.png" alt="" /> English</span></li>
-                                <li><span><img src="images/language2.png" alt="" /> Español</span></li>
-                                <li><span><img src="images/language3.png" alt="" /> Français</span></li>
-                                <li><span><img src="images/language4.png" alt="" /> Norsk</span></li>
+<div class="class=" theme-layout"">
+    <section>
+        <div class="block no-padding">
+            <div class="row">
+                <div class="col-md-12 column">
+                    <div class="main-section">
+                        @Html.Partial("~/Views/Shared/UserLayout/_Slide.cshtml")
+                        <div class="site-info-bar">
+                            <div class="info-box">
+                                <i class="fa fa-upload"></i>
+                                <span>Total Photos</span>
+                                @{
+                                    var totalPhoto = Model.Count();
+                                }
+                                <strong>@totalPhoto</strong>
+                            </div><!-- Info Box -->
+                            <div class="info-box">
+                                <i class="fa fa-user"></i>
+                                <span>Our Users</span>
+                                <strong>40,933</strong>
+                            </div><!-- Info Box -->
+                            <div class="info-box">
+                                <i class="fa fa-phone"></i>
+                                <span>Call Us</span>
+                                <strong>123 456 789</strong>
+                            </div><!-- Info Box -->
+                        </div><!-- Site Info Bar -->
+                    </div><!-- Main Section -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="margin-top: 1%">
+        <div class="block remove-gap">
+            <div class="row ">
+                <div class="col-md-12 column">
+                    <div class="title center">
+                        <h2>Top Categories</h2>
+                        <i>You can select from the key</i>
+                    </div>
+
+                    <div class="options">
+                        <div class="option-combo">
+                            <ul id="filter" class="option-set" data-option-key="filter">
+                                <li><a href="#showall" data-option-value="*" class="selected">Show all</a></li>
+                                <li><a href="#category1" data-option-value=".category1">Photos</a></li>
+                                <li><a href="#category2" data-option-value=".category2">Vectors</a></li>
+                                <li><a href="#category2" data-option-value=".category3">Editorial</a></li>
+                                <li><a href="#category3" data-option-value=".category4">Illustrations</a></li>
+                                <li><a href="#category4" data-option-value=".category5">Footage</a></li>
                             </ul>
                         </div>
-                    </li>
-                </ul>
-            </div>
-        </div><!-- Responsive Header -->
+                    </div><!-- FILTER BUTTONS -->
 
-        <section>
-            <div class="block no-padding">
-                <div class="row">
-                    <div class="col-md-12 column">
-                        <div class="main-section">
-                            <div class="image-slider">
-                                <div class="tp-banner">
-                                    <ul>
-                                        <li data-transition="slidedown  cube-vertical" data-masterspeed="500">
-                                            <img src="http://placehold.it/1600x1000" alt="" data-duration="120" data-ease="Power0.easeInOut">
-                                        </li><!-- SLIDE  -->
-                                        <li data-transition="slideleft cube-horizontal" data-masterspeed="500">
-                                            <img src="http://placehold.it/1600x1000" alt="" data-duration="120" data-ease="Power0.easeInOut ">
-                                        </li><!-- SLIDE  -->
-                                    </ul>
-                                </div>
-                            </div><!-- Image Slider -->
-                            <div class="welcome-overlay">
-                                <div class="welcome-inner">
-                                    <div class="logo"><a href="#" title=""><img src="images/logo.png" alt="" /></a></div><!-- Logo -->
-                                    <div class="main-tabber">
-                                        <ul class="custom-tabs">
-                                            <li class="active"><a href="#" data-name="all-search" title="">all Search</a></li>
-                                            <li><a href="#" data-name="category" title=""><i class="fa fa-diamond"></i> Images by Category</a></li>
-                                        </ul><!-- Main Tabber Buttons -->
-                                        <div class="custom-content">
-                                            <div data-id="all-search" class="tab-detail active">
-                                                <div class="main-search fadeInUp">
-                                                    <form>
-                                                        <input type="text" placeholder="Search Here Your Keywords">
-                                                        <button><i class="fa fa-search"></i></button>
-                                                    </form>
-                                                </div><!-- Main Search -->
-                                            </div>
-                                            <div data-id="category" class="tab-detail">
-                                                <div class="images-category">
-                                                    <ul class="col-md-3">
-                                                        <li><a href="images-list.html" title="">Abstract</a></li>
-                                                        <li><a href="images-list.html" title="">Animals / Wildlife</a></li>
-                                                        <li><a href="images-list.html" title="">The Arts</a></li>
-                                                        <li><a href="images-list.html" title="">Backgrounds / Textures</a></li>
-                                                        <li><a href="images-list.html" title="">Beauty / Fashion</a></li>
-                                                    </ul>
-                                                    <ul class="col-md-3">
-                                                        <li><a href="images-list.html" title="">Buildings / Landmarks</a></li>
-                                                        <li><a href="images-list.html" title="">Backgrounds / Textures</a></li>
-                                                        <li><a href="images-list.html" title="">Beauty / Fashion</a></li>
-                                                        <li><a href="images-list.html" title="">Animals / Wildlife</a></li>
-                                                        <li><a href="images-list.html" title="">The Arts</a></li>
-                                                    </ul>
-                                                    <ul class="col-md-3">
-                                                        <li><a href="images-list.html" title="">The Arts</a></li>
-                                                        <li><a href="images-list.html" title="">Backgrounds / Textures</a></li>
-                                                        <li><a href="images-list.html" title="">Beauty / Fashion</a></li>
-                                                        <li><a href="images-list.html" title="">Animals / Wildlife</a></li>
-                                                        <li><a href="images-list.html" title="">The Arts</a></li>
-                                                    </ul>
-                                                    <ul class="col-md-3">
-                                                        <li><a href="images-list.html" title="">The Arts</a></li>
-                                                        <li><a href="images-list.html" title="">Backgrounds / Textures</a></li>
-                                                        <li><a href="images-list.html" title="">Beauty / Fashion</a></li>
-                                                        <li><a href="images-list.html" title="">Animals / Wildlife</a></li>
-                                                        <li><a href="images-list.html" title="">The Arts</a></li>
-                                                    </ul>
-                                                </div><!-- Images Category -->
-                                            </div>
+                    <div class="row narrow">
+                        <div class="masonary">
+                            @foreach (var item in Model)
+                            {
+
+                                <div class="col-md-3 category1">
+                                    <div class="image-box">
+                                        @* 384x282 *@
+                                        <a href="~/Home/DetailPhoto/@item.ID" title="@item.photoName"><img src="@item.photoLink" alt="Photo" height="282" /></a>
+                                        <span class="image-name">
+                                            <a href="~/Home/DetailPhoto/@item.ID" class="list-unstyled" style="color:#ffffff">@item.photoName</a>
+                                        </span>
+                                        @foreach (var x in cate)
+                                        {
+                                            if (x.cateID == item.cateID)
+                                            {
+                                                <span class="image-license"> @x.cateName </span>
+                                            }
+                                        }
+                                        <div class="image-links">
+                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
                                         </div>
-                                    </div><!-- Main Tabber -->
-                                </div>
-                            </div><!-- Welcome Overlay -->
-                            <div class="site-info-bar">
-                                <div class="info-box">
-                                    <i class="fa fa-upload"></i>
-                                    <span>Total Images</span>
-                                    <strong>750,789,586</strong>
-                                </div><!-- Info Box -->
-                                <div class="info-box">
-                                    <i class="fa fa-user"></i>
-                                    <span>Our Users</span>
-                                    <strong>40,933</strong>
-                                </div><!-- Info Box -->
-                                <div class="info-box">
-                                    <i class="fa fa-phone"></i>
-                                    <span>Call Us</span>
-                                    <strong>203-934-944</strong>
-                                </div><!-- Info Box -->
-                            </div><!-- Site Info Bar -->
-                        </div><!-- Main Section -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <section>
-            <div class="block">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 column">
-                            <div class="title center">
-                                <h2>Choose Your Best Package </h2>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                            </div>
-
-                            <div class="best-packages">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="package">
-                                            <i class="ti-stats-up"></i>
-                                            <h4>Weekly Packages</h4>
-                                            <p>Just starting out? Our Pay-As-You-Go plans offer images </p>
-                                            <strong>$2.64<a href="single-page2.html" title="">Choose plan</a></strong>
-                                        </div><!-- Package -->
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="package">
-                                            <i class="ti-microsoft"></i>
-                                            <h4>Weekly Packages</h4>
-                                            <p>Just starting out? Our Pay-As-You-Go plans offer images </p>
-                                            <strong>$2.64<a href="single-page2.html" title="">Choose plan</a></strong>
-                                        </div><!-- Package -->
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="package">
-                                            <i class="ti-comments-smiley"></i>
-                                            <h4>Weekly Packages</h4>
-                                            <p>Just starting out? Our Pay-As-You-Go plans offer images </p>
-                                            <strong>$2.64<a href="single-page2.html" title="">Choose plan</a></strong>
-                                        </div><!-- Package -->
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="package">
-                                            <i class="ti-briefcase"></i>
-                                            <h4>Weekly Packages</h4>
-                                            <p>Just starting out? Our Pay-As-You-Go plans offer images </p>
-                                            <strong>$2.64<a href="single-page2.html" title="">Choose plan</a></strong>
-                                        </div><!-- Package -->
                                     </div>
                                 </div>
-                                <div class="view-all">
-                                    <a data-letters="See Plans & Pricing" class="theme-btn package-btn" href="#" title="">See Plans & Pricing</a>
-                                </div>
-                            </div><!-- Best Packages -->
+                            }
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
 
-        <section>
-            <div class="block remove-gap">
-                <div class="row ">
-                    <div class="col-md-12 column">
-                        <div class="title center">
-                            <h2>Top Categories</h2>
-                            <i>You can select from the key</i>
-                        </div>
-
-                        <div class="options">
-                            <div class="option-combo">
-                                <ul id="filter" class="option-set" data-option-key="filter">
-                                    <li><a href="#showall" data-option-value="*" class="selected">Show all</a></li>
-                                    <li><a href="#category1" data-option-value=".category1">Photos</a></li>
-                                    <li><a href="#category2" data-option-value=".category2">Vectors</a></li>
-                                    <li><a href="#category2" data-option-value=".category3">Editorial</a></li>
-                                    <li><a href="#category3" data-option-value=".category4">Illustrations</a></li>
-                                    <li><a href="#category4" data-option-value=".category5">Footage</a></li>
-                                </ul>
-                            </div>
-                        </div><!-- FILTER BUTTONS -->
-
-                        <div class="row narrow">
-                            <div class="masonary">
-                                <div class="col-md-3 category1">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category2">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category3">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category4">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category1">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category5">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category1">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category2">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category3">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category4">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category5">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 category1">
-                                    <div class="image-box">
-                                        <a href="single-page.html" title=""><img src="http://placehold.it/384x282" alt="" /></a>
-                                        <span class="image-name"># 231366088</span>
-                                        <span class="image-license">License :    x - xxl</span>
-                                        <div class="image-links">
-                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <section>
-            <div class="block remove-gap">
-                <div class="container">
-                    <div class="row ">
-                        <div class="col-md-8 column">
-                            <div class="title">
-                                <h2>Free Content Every Week.</h2>
-                                <i>You can select from the key</i>
-                                <p>Search for images anywhere using our award-winning iPad®, iPhone®, and Android® apps. Functional enough to use alone, beautiful enough to show off to clients. </p>
-                            </div>
-                            <div class="free-images">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="free-download">
-                                            <img src="http://placehold.it/228x220" alt="" />
-                                            <strong>Free Vector of the Week</strong>
-                                            <span><a href="#" title="">Download</a></span>
-                                        </div><!-- Free Download -->
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="free-download">
-                                            <img src="http://placehold.it/228x220" alt="" />
-                                            <strong>Free Vector of the Week</strong>
-                                            <span><a href="#" title="">Download</a></span>
-                                        </div><!-- Free Download -->
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="free-download">
-                                            <img src="http://placehold.it/228x220" alt="" />
-                                            <strong>Free Vector of the Week</strong>
-                                            <span><a href="#" title="">Download</a></span>
-                                        </div><!-- Free Download -->
-                                    </div>
-                                </div>
-                                <div class="view-all">
-                                    <a data-letters="View All" class="theme-btn small" href="#" title="">View All</a>
-                                </div>
-                            </div><!-- Free Images -->
-                        </div>
-                        <div class="col-md-4 column">
-                            <div class="form-box">
-                                <div class="title">
-                                    <h2>Sign Up</h2>
-                                    <i>You can select from the key</i>
-                                </div>
-                                <form class="registration-form">
-                                    <div class="row">
-                                        <div class="col-md-12"><div class="field"><i class="ti-user"></i><input type="text" placeholder="Name" /></div></div>
-                                        <div class="col-md-12"><div class="field"><i class="ti-envelope"></i><input type="email" placeholder="Email Address" /></div></div>
-                                        <div class="col-md-12"><div class="field"><i class="ti-key"></i><input type="password" placeholder="Password" /></div></div>
-                                        <div class="col-md-12"><div class="field choice"><input type="checkbox" name="check" /><label>I agree to Shutterstock's Website Terms, Privacy Policy, Licensing Terms and to receive emails that I can opt out of at any time.</label></div></div>
-                                        <div class="col-md-12"><div class="field field-button"><input type="submit" value="Create Account" /></div></div>
-                                    </div>
-                                </form>
-                            </div><!-- Sing Up Form -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-
-    <footer>
-        <div class="block">
+    <section>
+        <div class="block remove-gap">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-2 column">
-                        <div class="widget">
-                            <h4 class="widget-title">picstock.com</h4>
-                            <ul>
-                                <li><a href="freedownloads.html" title="">Free Downloads</a></li>
-                                <li><a href="wishlist.html" title="">Wishlist</a></li>
-                                <li><a href="price-package.html" title="">Price Packages</a></li>
-                                <li><a href="affiliations.html" title="">Affiliations</a></li>
-                                <li><a href="download-history.html" title="">Download History</a></li>
-                            </ul>
-                        </div><!-- Widget -->
-                    </div>
-                    <div class="col-md-2 column">
-                        <div class="widget">
-                            <h4 class="widget-title">Who We Are</h4>
-                            <ul>
-                                <li><a href="affiliations.html" title="">Affiliations</a></li>
-                                <li><a href="blog.html" title="">Blog</a></li>
-                                <li><a href="blog-single.html" title="">Blog Single</a></li>
-                                <li><a href="blog-single-sidebar.html" title="">Blog Single W/S</a></li>
-                                <li><a href="freedownloads.html" title="">Free Downloads</a></li>
-                            </ul>
-                        </div><!-- Widget -->
-                    </div>
-                    <div class="col-md-2 column">
-                        <div class="widget">
-                            <h4 class="widget-title">Ways To Pay</h4>
-                            <ul>
-                                <li><a href="cart.html" title="">Cart</a></li>
-                                <li><a href="checkout.html" title="">Checkout</a></li>
-                                <li><a href="wishlist.html" title="">Wishlist</a></li>
-                                <li><a href="#" title="">Plans & Pricing</a></li>
-                                <li><a href="#" title="">Coorporate Accounts</a></li>
-                            </ul>
-                        </div><!-- Widget -->
-                    </div>
-                    <div class="col-md-3 column">
-                        <div class="widget">
-                            <h4 class="widget-title">Free Images</h4>
-                            <div class="images-widget">
-                                <a href="#" title=""><img src="http://placehold.it/90x90" alt="" /></a>
-                                <a href="#" title=""><img src="http://placehold.it/90x90" alt="" /></a>
-                                <a href="#" title=""><img src="http://placehold.it/90x90" alt="" /></a>
-                                <a href="#" title=""><img src="http://placehold.it/90x90" alt="" /></a>
-                                <a href="#" title=""><img src="http://placehold.it/90x90" alt="" /></a>
-                                <a href="#" title=""><img src="http://placehold.it/90x90" alt="" /></a>
-                            </div>
+                <div class="row ">
+                    <div class="col-md-8 column">
+                        <div class="title">
+                            <h2>Free Content Every Week.</h2>
+                            <i>You can select from the key</i>
+                            <p>Search for images anywhere using our award-winning iPad®, iPhone®, and Android® apps. Functional enough to use alone, beautiful enough to show off to clients. </p>
                         </div>
-                    </div>
-                    <div class="col-md-3 column">
-                        <div class="widget">
-                            <h4 class="widget-title">Follow Us</h4>
-                            <div class="social-widget">
-                                <p>Search for images anywhere using our award-winning iPad apps.</p>
-                                <ul>
-                                    <li><a style="background:#0070cf;" href="#" title=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a style="background:#be3100;" href="#" title=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a style="background:#d900a3;" href="#" title=""><i class="fa fa-flickr"></i></a></li>
-                                    <li><a style="background:#e04c86;" href="#" title=""><i class="fa fa-dribbble"></i></a></li>
-                                    <li><a style="background:#fe3400;" href="#" title=""><i class="fa fa-reddit"></i></a></li>
-                                </ul>
-                                <form>
-                                    <input type="text" placeholder="Subscribe" />
-                                    <button><i class="ti-arrow-right"></i></button>
-                                </form>
+                        <div class="free-images">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="free-download">
+                                        <img src="http://placehold.it/228x220" alt="" />
+                                        <strong>Free Vector of the Week</strong>
+                                        <span><a href="#" title="">Download</a></span>
+                                    </div><!-- Free Download -->
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="free-download">
+                                        <img src="http://placehold.it/228x220" alt="" />
+                                        <strong>Free Vector of the Week</strong>
+                                        <span><a href="#" title="">Download</a></span>
+                                    </div><!-- Free Download -->
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="free-download">
+                                        <img src="http://placehold.it/228x220" alt="" />
+                                        <strong>Free Vector of the Week</strong>
+                                        <span><a href="#" title="">Download</a></span>
+                                    </div><!-- Free Download -->
+                                </div>
                             </div>
-                        </div>
+                            <div class="view-all">
+                                <a data-letters="View All" class="theme-btn small" href="#" title="">View All</a>
+                            </div>
+                        </div><!-- Free Images -->
+                    </div>
+                    <div class="col-md-4 column">
+                        <div class="form-box">
+                            <div class="title">
+                                <h2>Sign Up</h2>
+                                <i>You can select from the key</i>
+                            </div>
+                            <form class="registration-form">
+                                <div class="row">
+                                    <div class="col-md-12"><div class="field"><i class="ti-user"></i><input type="text" placeholder="Name" /></div></div>
+                                    <div class="col-md-12"><div class="field"><i class="ti-envelope"></i><input type="email" placeholder="Email Address" /></div></div>
+                                    <div class="col-md-12"><div class="field"><i class="ti-key"></i><input type="password" placeholder="Password" /></div></div>
+                                    <div class="col-md-12"><div class="field choice"><input type="checkbox" name="check" /><label>I agree to Shutterstock's Website Terms, Privacy Policy, Licensing Terms and to receive emails that I can opt out of at any time.</label></div></div>
+                                    <div class="col-md-12"><div class="field field-button"><input type="submit" value="Create Account" /></div></div>
+                                </div>
+                            </form>
+                        </div><!-- Sing Up Form -->
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
-    <div class="bottom-footer">
-        <div class="container"><p>© 2015-2016 Picstock, Inc. All rights reserved. Made By Webinane.</p></div>
-    </div>
-
-
-    <div class="registration-popup">
-        <div class="popup-overlay">
-            <div class="popup-container">
-
-                <div class="form-box signup-popup">
-                    <span class="close-popup"><i class="fa fa-remove"></i></span>
-                    <div class="title">
-                        <h2>Sign Up</h2>
-                        <i>You can select from the key</i>
-                    </div>
-                    <form class="registration-form">
-                        <div class="row">
-                            <div class="col-md-12"><div class="field"><i class="ti-user"></i><input type="text" placeholder="Name" /></div></div>
-                            <div class="col-md-12"><div class="field"><i class="ti-envelope"></i><input type="email" placeholder="Email Address" /></div></div>
-                            <div class="col-md-12"><div class="field"><i class="ti-key"></i><input type="password" placeholder="Password" /></div></div>
-                            <div class="col-md-12"><div class="field choice"><input type="checkbox" name="check" /><label>I agree to Shutterstock's Website Terms, Privacy Policy, Licensing<br /> Terms and to receive emails that I can opt out of at any time.</label></div></div>
-                            <div class="col-md-12"><div class="field field-button"><input type="submit" value="Create Account" /></div></div>
-                        </div>
-                    </form>
-                </div><!-- Sing Up Form -->
-
-                <div class="form-box login-popup">
-                    <span class="close-popup"><i class="fa fa-remove"></i></span>
-                    <div class="title">
-                        <h2>LOGIN</h2>
-                        <i>You can select from the key</i>
-                    </div>
-                    <form class="registration-form">
-                        <div class="row">
-                            <div class="col-md-12"><div class="field"><i class="ti-user"></i><input type="text" placeholder="Name" /></div></div>
-                            <div class="col-md-12"><div class="field"><i class="ti-envelope"></i><input type="email" placeholder="Email Address" /></div></div>
-                            <div class="col-md-12"><div class="field"><i class="ti-key"></i><input type="password" placeholder="Password" /></div></div>
-                            <div class="col-md-12"><div class="field choice"><input type="checkbox" name="check" /><label>I agree to Shutterstock's Website Terms, Privacy Policy, Licensing<br /> Terms and to receive emails that I can opt out of at any time.</label></div></div>
-                            <div class="col-md-12"><div class="field field-button"><input type="submit" value="Login" /></div></div>
-                        </div>
-                    </form>
-                </div><!-- Login Form -->
-
-                <div class="packages-popup">
-                    <span class="close-popup"><i class="fa fa-remove"></i></span>
-                    <div class="credits">
-                        <div class="simple-title">
-                            <h2>Pay Per Download With  Credits</h2>
-                            <p>Download the images, vectors and video clips you need with credits - buy more, save more. </p>
-                        </div>
-                        <div class="buy-credits">
-                            <div class="credit">
-                                <span>3 Credits</span>
-                                <div class="credits-price"><strong>$33 USD</strong>SAVE 8%</div>
-                                <a class="buy" href="#" title="">BUY CREDITS</a>
-                            </div>
-                            <div class="credit">
-                                <span>3 Credits</span>
-                                <div class="credits-price"><strong>$33 USD</strong>SAVE 8%</div>
-                                <a class="buy" href="#" title="">BUY CREDITS</a>
-                            </div>
-                            <div class="credit">
-                                <span>3 Credits</span>
-                                <div class="credits-price"><strong>$33 USD</strong>SAVE 8%</div>
-                                <a class="buy" href="#" title="">BUY CREDITS</a>
-                            </div>
-                            <div class="credit">
-                                <span>3 Credits</span>
-                                <div class="credits-price"><strong>$33 USD</strong>SAVE 8%</div>
-                                <a class="buy" href="#" title="">BUY CREDITS</a>
-                            </div>
-                            <div class="credit">
-                                <span>3 Credits</span>
-                                <div class="credits-price"><strong>$33 USD</strong>SAVE 8%</div>
-                                <a class="buy" href="#" title="">BUY CREDITS</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="subscribe">
-                        <div class="simple-title">
-                            <h2>Pay Per Download With  Credits</h2>
-                            <p>Download the images, vectors and video clips you need with credits - buy more, save more. </p>
-                        </div>
-                        <div class="best-packages">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="package">
-                                        <i class="ti-stats-up"></i>
-                                        <h4>Weekly Packages</h4>
-                                        <p>Just starting out? Our Pay-As-You-Go plans offer images </p>
-                                        <strong>$2.64<a href="#" title="">Choose plan</a></strong>
-                                    </div><!-- Package -->
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="package">
-                                        <i class="ti-microsoft"></i>
-                                        <h4>Weekly Packages</h4>
-                                        <p>Just starting out? Our Pay-As-You-Go plans offer images </p>
-                                        <strong>$2.64<a href="#" title="">Choose plan</a></strong>
-                                    </div><!-- Package -->
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="package">
-                                        <i class="ti-comments-smiley"></i>
-                                        <h4>Weekly Packages</h4>
-                                        <p>Just starting out? Our Pay-As-You-Go plans offer images </p>
-                                        <strong>$2.64<a href="#" title="">Choose plan</a></strong>
-                                    </div><!-- Package -->
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="package">
-                                        <i class="ti-briefcase"></i>
-                                        <h4>Weekly Packages</h4>
-                                        <p>Just starting out? Our Pay-As-You-Go plans offer images </p>
-                                        <strong>$2.64<a href="#" title="">Choose plan</a></strong>
-                                    </div><!-- Package -->
-                                </div>
-                            </div>
-                        </div>
-                        <span><strong>Need larger credit packs?</strong>  Call +1 876 378 251.</span>
-                    </div>
-                </div><!-- Packages Popup -->
-            </div>
-        </div>
-    </div><!-- Registration Popup -->
-
-    <div class="wishlist-btn"><a href="wishlist.html" title=""><i class="fa fa-heart"></i></a></div>
-
-
-    <script src="js/jquery.min.js" type="text/javascript"></script>
-
-    <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
-    <script type="text/javascript" src="js/revolution/jquery.themepunch.tools.min.js"></script>
-    <script type="text/javascript" src="js/revolution/jquery.themepunch.revolution.min.js"></script>
-
-    <script src="js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="js/enscroll-0.5.2.min.js" type="text/javascript"></script>
-    <script src="js/jquery.scrolly.js" type="text/javascript"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="js/isotope-initialize.js"></script>
-    <script src="js/script.js" type="text/javascript"></script>
-    <script type="text/javascript">
-	$(document).ready(function(){
-			jQuery('.tp-banner').show().revolution({
-				delay:15000,
-				startwidth:1170,
-				startheight:540,
-				autoHeight:"off",
-				navigationType:"none",
-				hideThumbs:10,
-				fullWidth:"on",
-				fullScreen:"on",
-				fullScreenOffsetContainer:""
-			});
-
-	});
-    </script>
-
-</body>
-
-
+    </section>
+</div>

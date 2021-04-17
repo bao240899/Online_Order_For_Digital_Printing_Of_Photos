@@ -1,0 +1,325 @@
+﻿@model Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.PhotoModel
+@using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
+
+@{
+    ViewBag.Title = "DetailPhoto";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+    var formatid = new PhotoDAO().GetFormatIdByID(Model.ID);
+}
+
+<section>
+    <div class="block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 column">
+                    <div class="detail-page">
+                        <form class="field-set ac-custom ac-checkbox ac-checkmark  ac-radio ac-circle">
+                            <div class="single-img"><img src="@Model.photoLink" alt="@Model.photoName" /></div>
+                            <div class="single-img-detail">
+                                <h2>Name Photo:</h2>
+                                <span>@Model.photoName</span>
+                                <span class="img-id">image ID: <i>@Model.ID</i></span>
+                                <p>@Model.description</p>
+
+                                @*@{
+                                        var photoformat = new PhotoFormatDao().PhotoFormatList(Model.photoID);
+                                        //var format = new List<Format>();
+                                    }*@
+
+                                <div>
+                                    <div class="row">
+                                        @foreach (var item in formatid)
+                                        {
+                                            var format = new formatDAO().GetFormatById((int)item.formatID);
+                                            <div class="col-md-6">
+                                                <div class="field-col">
+                                                    <div class="checkbox-container"><input id="cb1" name="cb1" type="checkbox" /></div>
+                                                    @foreach (var x in format)
+                                                    {
+                                                        <div class="check-info">
+                                                            <strong>@x.formatName</strong>
+                                                            <span>@x.width x @x.height</span>
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                                <hr class="separator" style="margin:0;margin-bottom: 20px;" />
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+
+                                <!--<div class="field-row">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="field-col">
+                                            <div class="checkbox-container"><input id="cb3" name="cb3" type="checkbox" /></div>
+                                            <div class="check-info">
+                                                <strong>4745 × 3434 px – $5.00</strong>
+                                                <span>15.8 × 11.4" @@ 300.0 dpi</span>
+                                            </div>
+                                        </div>-->
+                                <!-- Field Column -->
+                                <!--</div>
+                                <div class="col-md-6">
+                                    <div class="field-col">
+                                        <div class="checkbox-container"><input id="cb4" name="cb4" type="checkbox" /></div>
+                                        <div class="check-info">
+                                            <strong>4745 × 3434 px – $5.00</strong>
+                                            <span>15.8 × 11.4" @@ 300.0 dpi</span>
+                                        </div>
+                                    </div>-->
+                                <!-- Field Column -->
+                                <!--</div>
+                                    </div>
+                                </div>-->
+
+
+                                <a data-letters="Download now" class="theme-btn" href="~/Photo/Download" title="">Download now</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section>
+    <div class="block remove-gap">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-12 column">
+                    <div class="icon-title dark">
+                        <span><i class="ti-dropbox"></i></span>
+                        <h2>Similar Images</h2>
+                        <i>You can select from the key</i>
+                    </div>
+
+                    <div class="images-list loadmore-disable">
+                        <a data-letters="View All" class="theme-btn small" href="images-list.html" title="">View All</a>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="image-download">
+                                    <img src="http://placehold.it/278x256" alt="" />
+                                    <div class="image-bar">
+                                        <div class="cat"><a href="#" title="">Music Fun</a></div>
+                                        <span>12 Credits</span>
+                                    </div>
+                                    <div class="image-bar bottom">
+                                        <div class="image-links">
+                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
+                                        </div>
+                                        <span>License : x - xxl</span>
+                                    </div>
+                                </div><!-- Image -->
+                            </div>
+                            <div class="col-md-3">
+                                <div class="image-download">
+                                    <img src="http://placehold.it/278x256" alt="" />
+                                    <div class="image-bar">
+                                        <div class="cat"><a href="#" title="">Music Fun</a></div>
+                                        <span>12 Credits</span>
+                                    </div>
+                                    <div class="image-bar bottom">
+                                        <div class="image-links">
+                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
+                                        </div>
+                                        <span>License : x - xxl</span>
+                                    </div>
+                                </div><!-- Image -->
+                            </div>
+                            <div class="col-md-3">
+                                <div class="image-download">
+                                    <img src="http://placehold.it/278x256" alt="" />
+                                    <div class="image-bar">
+                                        <div class="cat"><a href="#" title="">Music Fun</a></div>
+                                        <span>12 Credits</span>
+                                    </div>
+                                    <div class="image-bar bottom">
+                                        <div class="image-links">
+                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
+                                        </div>
+                                        <span>License : x - xxl</span>
+                                    </div>
+                                </div><!-- Image -->
+                            </div>
+                            <div class="col-md-3">
+                                <div class="image-download">
+                                    <img src="http://placehold.it/278x256" alt="" />
+                                    <div class="image-bar">
+                                        <div class="cat"><a href="#" title="">Music Fun</a></div>
+                                        <span>12 Credits</span>
+                                    </div>
+                                    <div class="image-bar bottom">
+                                        <div class="image-links">
+                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
+                                        </div>
+                                        <span>License : x - xxl</span>
+                                    </div>
+                                </div><!-- Image -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="block remove-gap">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-12 column">
+                    <div class="icon-title dark">
+                        <span><i class="ti-dropbox"></i></span>
+                        <h2>Same Model</h2>
+                        <i>See 434 other creative contents with the same model</i>
+                    </div>
+
+                    <div class="images-list loadmore-disable">
+                        <a data-letters="View All" class="theme-btn small" href="images-list.html" title="">View All</a>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="image-download">
+                                    <img src="http://placehold.it/278x256" alt="" />
+                                    <div class="image-bar">
+                                        <div class="cat"><a href="#" title="">Music Fun</a></div>
+                                        <span>12 Credits</span>
+                                    </div>
+                                    <div class="image-bar bottom">
+                                        <div class="image-links">
+                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
+                                        </div>
+                                        <span>License : x - xxl</span>
+                                    </div>
+                                </div><!-- Image -->
+                            </div>
+                            <div class="col-md-3">
+                                <div class="image-download">
+                                    <img src="http://placehold.it/278x256" alt="" />
+                                    <div class="image-bar">
+                                        <div class="cat"><a href="#" title="">Music Fun</a></div>
+                                        <span>12 Credits</span>
+                                    </div>
+                                    <div class="image-bar bottom">
+                                        <div class="image-links">
+                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
+                                        </div>
+                                        <span>License : x - xxl</span>
+                                    </div>
+                                </div><!-- Image -->
+                            </div>
+                            <div class="col-md-3">
+                                <div class="image-download">
+                                    <img src="http://placehold.it/278x256" alt="" />
+                                    <div class="image-bar">
+                                        <div class="cat"><a href="#" title="">Music Fun</a></div>
+                                        <span>12 Credits</span>
+                                    </div>
+                                    <div class="image-bar bottom">
+                                        <div class="image-links">
+                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
+                                        </div>
+                                        <span>License : x - xxl</span>
+                                    </div>
+                                </div><!-- Image -->
+                            </div>
+                            <div class="col-md-3">
+                                <div class="image-download">
+                                    <img src="http://placehold.it/278x256" alt="" />
+                                    <div class="image-bar">
+                                        <div class="cat"><a href="#" title="">Music Fun</a></div>
+                                        <span>12 Credits</span>
+                                    </div>
+                                    <div class="image-bar bottom">
+                                        <div class="image-links">
+                                            <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
+                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
+                                        </div>
+                                        <span>License : x - xxl</span>
+                                    </div>
+                                </div><!-- Image -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+<section>
+    <div class="block remove-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="images-category style2 light">
+                        <div class="icon-title dark">
+                            <span><i class="ti-dropbox"></i></span>
+                            <h2>View Images by Category</h2>
+                            <i>See 434 other creative contents with the same model</i>
+                        </div>
+                        <ul class="col-md-3">
+                            <li><a href="#" title="">Abstract</a></li>
+                            <li><a href="#" title="">Animals / Wildlife</a></li>
+                            <li><a href="#" title="">The Arts</a></li>
+                            <li><a href="#" title="">Backgrounds / Textures</a></li>
+                            <li><a href="#" title="">Abstract</a></li>
+                            <li><a href="#" title="">Animals / Wildlife</a></li>
+                            <li><a href="#" title="">Beauty / Fashion</a></li>
+                        </ul>
+                        <ul class="col-md-3">
+                            <li><a href="#" title="">Buildings / Landmarks</a></li>
+                            <li><a href="#" title="">Beauty / Fashion</a></li>
+                            <li><a href="#" title="">Animals / Wildlife</a></li>
+                            <li><a href="#" title="">Backgrounds / Textures</a></li>
+                            <li><a href="#" title="">Beauty / Fashion</a></li>
+                            <li><a href="#" title="">Animals / Wildlife</a></li>
+                            <li><a href="#" title="">The Arts</a></li>
+                        </ul>
+                        <ul class="col-md-3">
+                            <li><a href="#" title="">The Arts</a></li>
+                            <li><a href="#" title="">Backgrounds / Textures</a></li>
+                            <li><a href="#" title="">Beauty / Fashion</a></li>
+                            <li><a href="#" title="">Animals / Wildlife</a></li>
+                            <li><a href="#" title="">The Arts</a></li>
+                            <li><a href="#" title="">Beauty / Fashion</a></li>
+                            <li><a href="#" title="">Animals / Wildlife</a></li>
+                        </ul>
+                        <ul class="col-md-3">
+                            <li><a href="#" title="">The Arts</a></li>
+                            <li><a href="#" title="">Backgrounds / Textures</a></li>
+                            <li><a href="#" title="">Beauty / Fashion</a></li>
+                            <li><a href="#" title="">Animals / Wildlife</a></li>
+                            <li><a href="#" title="">The Arts</a></li>
+                            <li><a href="#" title="">Backgrounds / Textures</a></li>
+                            <li><a href="#" title="">Beauty / Fashion</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

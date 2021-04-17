@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Online_Order_For_Digital_Printing_Of_Photos.Common;
+using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO;
+using Online_Order_For_Digital_Printing_Of_Photos.Models.Entities;
+using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,13 +14,27 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
     {
         public HomeController()
         {
-            
+
         }
 
-        public ActionResult Index() {
-            return View();
+        public ActionResult Index()
+        {
+            var model = new PhotoDAO().GetPhoto();
+            return View(model);
         }
 
-        
+        public ActionResult Photos()
+        {
+            var model = new PhotoDAO().GetPhoto();           
+
+            return View(model);
+        }
+
+        public ActionResult DetailPhoto(string id)
+        {
+            var model = new PhotoDAO().GetPhotoByID(id);
+            return View(model);
+
+        }
     }
 }

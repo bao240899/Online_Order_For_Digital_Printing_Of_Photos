@@ -6,7 +6,7 @@
                 <ul>
                     <li><a href="~/" title="">Home</a></li>
                     <li>
-                        <a href="~/Image" title="">Photos</a>
+                        <a href="~/Home/Photos" title="">Photos</a>
                     </li>
                 </ul>
             </nav><!-- Navigation -->
@@ -58,7 +58,7 @@
             <li><a href="~/" title="">Home</a></li>
             <li class="">
                 @*menu-item-has-children*@
-                <a href="~/Image" title="">Images</a>
+                <a href="~/Home.Photos" title="">Photo</a>
             </li>
         </ul>
     </div>
@@ -79,7 +79,7 @@
                 <li><a href="~/Cart"><i class="fa fa-shopping-cart"></i>Cart (0)</a></li>
                 <li>
                     @*@Html.ActionLink("My Profile", "Profile", "User", new { id = session.userID }, "")*@
-                    <a href="~/User/Profile/@session.userID">My Profile</a>
+                    <a href="~/User/AccountDetail">My Profile</a>
                 </li>
                 <li>
                     <a role="menuitem" href="~/Home/Logout"><i class="fa fa-power-off"></i> Logout</a>
