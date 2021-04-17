@@ -30,7 +30,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var res = userDao.Login(_user);
                 if (res == 1)
                 {
@@ -127,8 +126,15 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         public ActionResult AccountDetail()
         {
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
-            var rs = userDao.GetUserById(session.userID);
-            return View(rs);
+            if (session == null)
+            {
+                return Redirect("~/User/Login");
+            }
+            else
+            {
+                var rs = userDao.GetUserById(session.userID);
+                return View(rs);
+            }
         }
         [HttpPost]
         public ActionResult ChangePwd(UserModelView _user)
@@ -164,9 +170,15 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         public ActionResult MyPhoto()
         {
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
-            var userID = session.userID;
-            var model = new PhotoDAO().GetPhotoByUserid(userID);
-            return View(model);
+            if (session == null)
+            {
+                return Redirect("~/User/Login");
+            }
+            else
+            {
+                var model = new PhotoDAO().GetPhotoByUserid(session.userID);
+                return View(model);
+            }
         }
     }
 }

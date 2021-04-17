@@ -4,6 +4,10 @@
 @{
     ViewBag.Title = "MyPhoto";
     Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+
+    var cate = new CateDAO().GetAllCategory();
+    var photo = new PhotoDAO().GetAllPhotos();
+
 }
 
 @Html.Partial("~/Views/Shared/UserLayout/_Sidebar.cshtml")
@@ -58,10 +62,7 @@
                         <td class="text-right">
                             @Html.DisplayFor(modelItem => item.photo.description)
                         </td>
-                        @{
-                            var cate = new CateDAO().GetAllCategory();
-                            var photo = new PhotoDAO().GetAllPhotos();
-                        }
+
 
                         @switch (item.photo.status)
                         {
@@ -81,23 +82,23 @@
                                 break;
                         }
 
-
-
-                        @foreach (var x in cate)
+                        @if (item.photo.cateID != null)
                         {
-                            if (x.cateID == item.photo.cateID)
+                            foreach (var x in cate)
                             {
-                                <td class="text-right">
-                                    @x.cateName
-                                </td>
-                                break;
-                            }
-                            else
-                            {
-                                <td class="text-right"> </td>
-                                break;
+                                if (item.photo.cateID == x.cateID)
+                                {
+                                    <td class="text-right">
+                                        @x.cateName
+                                    </td>
+                                }
                             }
                         }
+                        else
+                        {
+                            <td class="text-right"></td>
+                        }
+
 
                         <td class="text-right">
                             @Html.DisplayFor(modelItem => item.photo.photoLink)

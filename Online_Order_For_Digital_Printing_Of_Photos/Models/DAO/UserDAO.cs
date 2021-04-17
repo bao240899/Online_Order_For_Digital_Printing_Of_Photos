@@ -102,6 +102,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
         {
             MD5 md5 = new MD5CryptoServiceProvider();
             byte[] fromData = Encoding.UTF8.GetBytes(str);
+
             byte[] targetData = md5.ComputeHash(fromData);
             string byte2String = null;
 

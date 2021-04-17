@@ -17,7 +17,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
 
         public List<PhotoModel> GetAllPhotos()
         {
-            var res = db.Photos.Where(x => x.status != 0).Select(x => new PhotoModel
+            var res = db.Photos.Where(x => x.status != 0 || x.status == null).Select(x => new PhotoModel
             {
                 photoID = x.photoID,
                 photoName = x.photoName,
@@ -31,32 +31,64 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             return res;
         }
 
+        public PhotoModel GetPhotoByID(string id)
+        {
+            //List<Photos> photo = db.Photos.ToList();
+            var res = db.Photos.GroupBy(c => new { c.ID, c.description, c.photoLink, c.photoName, c.cateID }).Select(x => new PhotoModel
+            {
+                ID = x.Key.ID,
+                photoName = x.Key.photoName,
+                description = x.Key.description,
+                cateID = x.Key.cateID,
+                photoLink = x.Key.photoLink,
+            }).SingleOrDefault(x => x.ID == id);
+            return res;
+        }
+
+        public List<PhotoModel> GetFormatIdByID(string id)
+        {
+            var res = db.Photos.Where(x => x.ID == id).Select(x => new PhotoModel
+            {
+                photoID = x.photoID,
+                formatID = x.formatID
+            }).ToList();
+            return res;
+        }
+
+        public List<Photos> GetPhoto()
+        {
+            List<Photos> photo = db.Photos.ToList();
+
+            var res = photo.GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
+            {
+                ID = gr.Key.ID,
+                photoName = gr.Key.photoName,
+                photoLink = gr.Key.photoLink,
+                cateID = gr.Key.cateID
+            }).ToList();
+
+            return res;
+
+        }
+
         public List<ViewUserPhotoModel> GetPhotoByUserid(int userid)
         {
             List<Photos> photo = db.Photos.ToList();
             List<userPhoto> userphoto = db.userPhoto.ToList();
-            List<Format> format = db.Format.ToList();
 
             var photoRecord = (from ps in photo
                                join userps in userphoto on ps.photoID equals userps.photoID
-                               join fm in format on ps.formatID equals fm.formatID
                                select new ViewUserPhotoModel()
                                {
                                    photo = ps,
-                                   userphoto = userps,
-                                   format = fm
+                                   userphoto = userps
                                }).Where(x => x.userphoto.userID == userid).ToList();
             return photoRecord;
         }
 
-        public void Insert(PhotoModel entity)
+        public void Insert(Photos photo)
         {
-            //var res = db.Photos.Where(x => new PhotoModel
-            //{
-            //    photoID = x.photoID
-            //});
-
-
+            db.Photos.Add(photo);
             db.SaveChanges();
         }
     }
