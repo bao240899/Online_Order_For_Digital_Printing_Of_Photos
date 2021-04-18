@@ -22,7 +22,7 @@
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
     <link rel="stylesheet" type="text/css" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/extralayers.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/settings.css" media="screen" />
-
+    @RenderSection("style", required: false)
 
 
 </head>
@@ -55,9 +55,6 @@
     <script src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/jquery.isotope.min.js"></script>
     <script src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/isotope-initialize.js"></script>
     <script src="~/Content/OnlineOrderForDigitalrintingOfPhotos/js/script.js" type="text/javascript"></script>
-    @* ckfinder *@
-    <script src="~/Content/ckfinder/ckfinder.js"></script>
-    @*<script src="~/Scripts/main.js"></script>*@
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -76,6 +73,5 @@
         });
     </script>
     @RenderSection("scripts", required: false)
-    @RenderSection("jsFooter", required: false)
 </body>
 </html>

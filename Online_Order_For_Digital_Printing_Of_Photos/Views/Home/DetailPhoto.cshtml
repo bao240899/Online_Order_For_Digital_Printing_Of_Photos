@@ -5,6 +5,7 @@
     ViewBag.Title = "DetailPhoto";
     Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
     var formatid = new PhotoDAO().GetFormatIdByID(Model.ID);
+    var cate = new CateDAO().GetFormatById((int)Model.cateID);
 }
 
 <section>
@@ -16,16 +17,31 @@
                         <form class="field-set ac-custom ac-checkbox ac-checkmark  ac-radio ac-circle">
                             <div class="single-img"><img src="@Model.photoLink" alt="@Model.photoName" /></div>
                             <div class="single-img-detail">
-                                <h2>Name Photo:</h2>
-                                <span>@Model.photoName</span>
-                                <span class="img-id">image ID: <i>@Model.ID</i></span>
-                                <p>@Model.description</p>
-
-                                @*@{
-                                        var photoformat = new PhotoFormatDao().PhotoFormatList(Model.photoID);
-                                        //var format = new List<Format>();
-                                    }*@
-
+                                <div style="margin-bottom: 1%">
+                                    <h3 style="display:inline; padding-right: 3%;">Name Photo:</h3>
+                                    <span>@Model.photoName</span>
+                                </div>
+                                <div>
+                                    <span>
+                                        <b>Category: </b>
+                                        @foreach (var item in cate)
+                                        {
+                                            <span>
+                                                <a href="#" style="font-weight:bold">@item.cateName</a>
+                                            </span>
+                                        }
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="img-id">
+                                        image ID:
+                                        <i>@Model.ID</i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <h4>Description: </h4>
+                                    <p style="padding-left: 5%">@Model.description</p>
+                                </div>
                                 <div>
                                     <div class="row">
                                         @foreach (var item in formatid)
@@ -36,10 +52,53 @@
                                                     <div class="checkbox-container"><input id="cb1" name="cb1" type="checkbox" /></div>
                                                     @foreach (var x in format)
                                                     {
-                                                        <div class="check-info">
-                                                            <strong>@x.formatName</strong>
-                                                            <span>@x.width x @x.height</span>
-                                                        </div>
+                                                        switch (item.status)
+                                                        {
+                                                            case 1:
+                                                                <div class="row">
+
+                                                                    <div class="check-info col-md-5">
+                                                                        <strong>@x.formatName</strong>
+                                                                        <span>@x.width x @x.height</span>
+
+                                                                    </div>
+
+                                                                    <div class="col-md-7">
+                                                                        <div><span><b>@item.Price$</b></span></div>
+                                                                        <a href="~/Photo/Download/@item.photoID" title=""><b style="color:red">Add to Card</b></a>
+                                                                    </div>
+                                                                </div>
+                                                                break;
+                                                            case 0:
+                                                                <div class="row">
+
+                                                                    <div class="check-info col-md-5">
+                                                                        <strong>@x.formatName</strong>
+                                                                        <span>@x.width x @x.height</span>
+
+                                                                    </div>
+
+                                                                    <div class="col-md-7">
+                                                                        <span><b style="color:red;text-transform: uppercase;">Sold</b></span>
+                                                                    </div>
+                                                                </div>
+                                                                break;
+                                                            default:
+                                                                <div class="row">
+
+                                                                    <div class="check-info col-md-5">
+                                                                        <strong>@x.formatName</strong>
+                                                                        <span>@x.width x @x.height</span>
+
+                                                                    </div>
+
+                                                                    <div class="col-md-7">
+                                                                        <span><b style="color:red;">Sold</b></span>
+                                                                    </div>
+                                                                </div>
+                                                                break;
+                                                        }
+
                                                     }
 
                                                 </div>
@@ -48,35 +107,7 @@
                                         }
                                     </div>
                                 </div>
-
-
-                                <!--<div class="field-row">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="field-col">
-                                            <div class="checkbox-container"><input id="cb3" name="cb3" type="checkbox" /></div>
-                                            <div class="check-info">
-                                                <strong>4745 × 3434 px – $5.00</strong>
-                                                <span>15.8 × 11.4" @@ 300.0 dpi</span>
-                                            </div>
-                                        </div>-->
-                                <!-- Field Column -->
-                                <!--</div>
-                                <div class="col-md-6">
-                                    <div class="field-col">
-                                        <div class="checkbox-container"><input id="cb4" name="cb4" type="checkbox" /></div>
-                                        <div class="check-info">
-                                            <strong>4745 × 3434 px – $5.00</strong>
-                                            <span>15.8 × 11.4" @@ 300.0 dpi</span>
-                                        </div>
-                                    </div>-->
-                                <!-- Field Column -->
-                                <!--</div>
-                                    </div>
-                                </div>-->
-
-
-                                <a data-letters="Download now" class="theme-btn" href="~/Photo/Download" title="">Download now</a>
+                                @*<a data-letters="Download now" class="theme-btn" href="~/Photo/Download" title="">Download now</a>*@
                             </div>
                         </form>
                     </div>

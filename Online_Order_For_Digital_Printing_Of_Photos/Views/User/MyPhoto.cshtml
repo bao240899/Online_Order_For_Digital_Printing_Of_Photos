@@ -9,8 +9,18 @@
     var photo = new PhotoDAO().GetAllPhotos();
 
 }
+@section scripts {
+    <script>
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+
+    </script>
+}
 
 @Html.Partial("~/Views/Shared/UserLayout/_Sidebar.cshtml")
+@Html.Partial("~/Views/Shared/UserLayout/_Alert.cshtml")
 
 <h2 style="text-align:center">My Photos</h2>
 
