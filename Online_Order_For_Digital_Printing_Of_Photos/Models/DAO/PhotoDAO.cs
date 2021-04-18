@@ -49,10 +49,18 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
         {
             var res = db.Photos.Where(x => x.ID == id).Select(x => new PhotoModel
             {
+                status = x.status,
+                Price = x.Price,
                 photoID = x.photoID,
                 formatID = x.formatID
             }).ToList();
             return res;
+
+        }
+
+        private List<PhotoModel> Redirect(string v)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Photos> GetPhoto()
@@ -75,15 +83,28 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
         {
             List<Photos> photo = db.Photos.ToList();
             List<userPhoto> userphoto = db.userPhoto.ToList();
+            List<Format> fm = db.Format.ToList();
 
             var photoRecord = (from ps in photo
                                join userps in userphoto on ps.photoID equals userps.photoID
+                               join FM in fm on ps.formatID equals FM.formatID
                                select new ViewUserPhotoModel()
                                {
                                    photo = ps,
-                                   userphoto = userps
+                                   userphoto = userps,
+                                   format = FM
                                }).Where(x => x.userphoto.userID == userid).ToList();
             return photoRecord;
+        }
+
+        public Photos getphotofordownload(int id)
+        {
+            return db.Photos.Find(id);
+        }
+
+        public void update(Photos photo)
+        {
+
         }
 
         public void Insert(Photos photo)

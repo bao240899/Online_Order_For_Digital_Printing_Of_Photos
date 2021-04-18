@@ -15,7 +15,7 @@
 
                     <div class="account-tabs">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#plan"><i class="fa fa-bolt"></i>Plan</a></li>
+                            <li class="active"><a data-toggle="tab" href="#plan"><i class="fa fa-bolt"></i>Overview</a></li>
                             <li><a data-toggle="tab" href="#profile"><i class="fa fa-gg"></i> Profile</a></li>
                             <li><a data-toggle="tab" href="#billing"><i class="fa fa-object-ungroup"></i> Billing</a></li>
                             <li><a data-toggle="tab" href="#purchase-history"><i class="fa fa-tripadvisor"></i> Purchase History</a></li>
@@ -25,27 +25,27 @@
                                 <div class="plan">
                                     <div class="row">
                                         <div class="col-md-8 column">
-                                            <h5 class="border-title">PLANS:</h5>
-                                            <h6 class="sub-title">My Images Plan</h6>
+                                            <h5 class="border-title">OVERVIEW:</h5>
+                                            <h6 class="sub-title">My Images overview</h6>
                                             <ul>
-                                                <li>1 Month, 750 Downloads per Month</li>
-                                                <li>Standard License</li>
-                                                <li>Standard License</li>
+                                                <li>Total Uploaded: </li>
+                                                <li>Total Downloaded: </li>
+                                                <li>Total Bill Completed: </li>
                                             </ul>
                                         </div>
                                         <div class="col-md-4 column">
                                             <div class="plan-info">
-                                                <span>Plan Expires:</span>
-                                                <strong>27 days</strong>
-                                                <span>Downloads Remaining:</span>
-                                                <strong>689 / 750 today</strong>
+                                                <span>Name:</span>
+                                                <strong>@Model.name</strong>
+                                                <span>Email:</span>
+                                                <strong>@Model.email</strong>
                                             </div>
-                                            <a href="#" title="">View Next Plan</a>
+                                            @*<a href="#" title="">View Next Plan</a>*@
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div id="profile" class="tab-pane fade">
+                            <div id="profile" class="tab-pane fade active">
                                 <div class="profile-info">
                                     <ul>
                                         <li><strong>USERNAME:</strong><span>@Model.name</span></li>

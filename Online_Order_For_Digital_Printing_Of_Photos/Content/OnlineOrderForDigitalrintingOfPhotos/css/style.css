@@ -62,11 +62,11 @@ p{
     line-height:28px;
     letter-spacing:1px;
 }
-ul li,
+/*ul li,
 ol li{
     font-family:noto sans;
-    color:#777777;
-}
+    color:red;
+}*/
 a:hover,
 a:focus{
     text-decoration:none;

@@ -25,7 +25,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
 
         public ActionResult Photos()
         {
-            var model = new PhotoDAO().GetPhoto();           
+            var model = new PhotoDAO().GetPhoto();
 
             return View(model);
         }
