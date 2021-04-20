@@ -2,7 +2,7 @@
 using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO;
 
 using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews;
-
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,7 +115,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                     ModelState.AddModelError("", "Register False!");
                 }
             }
-            //má chỗ này quên mất là k được redirect vì redirect xong là mất erros
             return View("SignUp");
         }
         public ActionResult Logout()
@@ -176,9 +175,16 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
             }
             else
             {
-                var model = new PhotoDAO().GetPhotoByUserid(session.userID);
-                return View(model);
+                return View();
             }
+        }
+
+        public PartialViewResult GetForMyPhoto(int? page)
+        {
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+            var session = (UserSession)Session[CommonConstant.USER_SESSION];
+            return PartialView("_PartialDataMyPhoto", new PhotoDAO().GetPhotoByUserid(session.userID).ToPagedList(pageNumber, pageSize));
         }
     }
 }

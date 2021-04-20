@@ -4,6 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -22,6 +24,8 @@
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
     <link rel="stylesheet" type="text/css" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/extralayers.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="~/Content/OnlineOrderForDigitalrintingOfPhotos/css/settings.css" media="screen" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("style", required: false)
 
 

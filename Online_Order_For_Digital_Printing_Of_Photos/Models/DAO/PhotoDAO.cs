@@ -1,5 +1,6 @@
 ﻿using Online_Order_For_Digital_Printing_Of_Photos.Models.Entities;
 using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,16 +59,27 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
 
         }
 
-        private List<PhotoModel> Redirect(string v)
-        {
-            throw new NotImplementedException();
-        }
 
-        public List<Photos> GetPhoto()
+        public IEnumerable<Photos> GetPhoto(int page, int pageSize)
         {
             List<Photos> photo = db.Photos.ToList();
 
-            var res = photo.GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
+            var res = photo.OrderBy(x => x.ID).GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
+            {
+                ID = gr.Key.ID,
+                photoName = gr.Key.photoName,
+                photoLink = gr.Key.photoLink,
+                cateID = gr.Key.cateID
+            }).ToPagedList(page, pageSize);
+
+            return res;
+        }
+        
+        public IEnumerable<Photos> GetPhotoForPhotos()
+        {
+            List<Photos> photo = db.Photos.ToList();
+
+            var res = photo.OrderBy(x => x.ID).GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
             {
                 ID = gr.Key.ID,
                 photoName = gr.Key.photoName,
@@ -76,7 +88,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             }).ToList();
 
             return res;
-
         }
 
         public List<ViewUserPhotoModel> GetPhotoByUserid(int userid)
@@ -93,7 +104,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
                                    photo = ps,
                                    userphoto = userps,
                                    format = FM
-                               }).Where(x => x.userphoto.userID == userid).ToList();
+                               }).Where(x => x.userphoto.userID == userid).OrderBy(x => x.photo.photoName).ToList();
             return photoRecord;
         }
 
