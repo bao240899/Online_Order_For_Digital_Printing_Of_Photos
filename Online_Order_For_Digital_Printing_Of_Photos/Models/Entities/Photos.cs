@@ -11,23 +11,16 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Photos
     {
         public int photoID { get; set; }
-        [Display(Name = "Photo Name")]
-        [Required(ErrorMessage = "Please Enter Name of Photo")]
         public string photoName { get; set; }
-        [Display(Name = "Description")]
-        [Required(ErrorMessage = "Please Enter Description of Photo")]
         public string description { get; set; }
         public Nullable<int> status { get; set; }
-        [Display(Name = "Category")]
         public Nullable<int> cateID { get; set; }
         public string photoLink { get; set; }
         public Nullable<int> formatID { get; set; }
-        [Display(Name = "Price")]
         public Nullable<int> Price { get; set; }
         public string ID { get; set; }
     }
