@@ -46,9 +46,18 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             return 0;
         }
 
-        public List<ManagerUserModelView> ListUserToManager()
+        public IEnumerable<ManagerUserModelView> ListUserToManager()
         {
-            var rs = entities.Users.Select(d => new ManagerUserModelView { userID = (int)d.userID, userName = d.userName, email = d.email, address = d.address, status = d.status, role = d.role, name = d.name }).ToList();
+            var rs = entities.Users.Select(d => new ManagerUserModelView
+            {
+                userID = (int)d.userID,
+                userName = d.userName,
+                email = d.email,
+                address = d.address,
+                status = d.status,
+                role = d.role,
+                name = d.name
+            }).ToList();
             return rs;
         }
         public List<UserModelView> ShowAllUser()
