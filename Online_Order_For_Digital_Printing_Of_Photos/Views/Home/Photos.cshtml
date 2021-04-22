@@ -1,5 +1,6 @@
-﻿@model IEnumerable<Online_Order_For_Digital_Printing_Of_Photos.Models.Entities.Photos>
+﻿@model PagedList.IPagedList<Online_Order_For_Digital_Printing_Of_Photos.Models.Entities.Photos>
 @using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Photos";
@@ -31,79 +32,7 @@
         </div>
     </section>
 
-    <div class="block remove-gap">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="title center">
-                    </div>
-                    <div class="filter-bar">
-                        <div class="grid-select">
-                            <a class="three-col" href="#" title=""><img src="~/Content/OnlineOrderForDigitalrintingOfPhotos/images/three-column.png" alt="" /></a>
-                            <a class="four-col" href="#" title=""><img src="~/Content/OnlineOrderForDigitalrintingOfPhotos/images/four-column.png" alt="" /></a>
-                        </div>
-                        <div class="filteration">
-                            <ul class="col-md-8">
-                                <li class=""><a href="~/Home/Photos" title=""><i class="fa fa-bolt"></i><label style="cursor: pointer">All Photos</label></a></li>
-                                @using (Html.BeginForm("ImgList", "Image", FormMethod.Post))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    foreach (var item in cate)
-                                    {
-                                        <li>
-                                            <i class="far fa-dot-circle"></i>
-                                            <label for="@item.cateID" style="cursor: pointer">@item.cateName</label>
-                                            <input type="submit" value="@item.cateID" name="cateID" id="@item.cateID" hidden />
-                                        </li>
-                                    }
-                                }
-                            </ul>
-                            <div class="pages">
-                                <span>Page <i>1</i> of 40395</span>
-                                <a href="#" title=""><i class="fa fa-angle-left"></i></a>
-                                <a href="#" title=""><i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="images-list">
-                        <div class="row scroll" data-ui="jscroll-default">
-                            @foreach (var item in Model)
-                            {
-                                <div class="col-md-3">
-                                    <div class="image-download">
-                                        @*<img src="http://placehold.it/278x256" alt="" />*@
-                                        <a href="~/Home/DetailPhoto/@item.ID">
-                                            <img src="@item.photoLink" alt="Photo" height="278" />
-                                        </a>
-                                        <div class="image-bar">
-                                            <div class="cat"><a href="~/Home/DetailPhoto/@item.ID" title="">@item.photoName</a></div>
-                                            @*<span>12 Credits</span>*@
-                                        </div>
-                                        <div class="image-bar bottom">
-                                            <div class="image-links">
-                                                <a href="#" title=""><i class="fa fa-shopping-cart"></i></a>
-                                                <a href="#" title=""><i class="fa fa-heart"></i></a>
-                                            </div>
-                                            @foreach (var x in cate)
-                                            {
-                                                if (x.cateID == item.cateID)
-                                                {
-                                                    <span class="image-license"> @x.cateName </span>
-                                                }
-                                            }
-                                        </div>
-                                    </div>
-                                    <!-- Image -->
-                                </div>
-
-                            }
-
-                            <div class="next"><a href="images-list2.php"><i class="ti-reload"></i><span>1 to 399</span></a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="block remove-gap" id="GetDataPhotoForPhotos">
+        @{Html.RenderAction("GetPhotoForPhotos", "Home", new { page = 1 }); }
     </div>
 </section>

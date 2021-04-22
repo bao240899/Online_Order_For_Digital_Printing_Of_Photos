@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.PhotoModel>
+﻿@model PagedList.IPagedList<Online_Order_For_Digital_Printing_Of_Photos.Models.Entities.Photos>
 @using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
 
 @{
@@ -18,10 +18,8 @@
                             <div class="info-box">
                                 <i class="fa fa-upload"></i>
                                 <span>Total Photos</span>
-                                @{
-                                    var totalPhoto = Model.Count();
-                                }
-                                <strong>@totalPhoto</strong>
+                                
+                                <strong>@Model.TotalItemCount</strong>
                             </div><!-- Info Box -->
                             <div class="info-box">
                                 <i class="fa fa-user"></i>
@@ -49,17 +47,15 @@
                         <i>You can select from the key</i>
                     </div>
 
-                    <div class="options">
-                        <div class="option-combo">
-                            <ul id="filter" class="option-set" data-option-key="filter">
-                                <li><a href="#showall" data-option-value="*" class="selected">Show all</a></li>
-                                <li><a href="#category1" data-option-value=".category1">Photos</a></li>
-                                <li><a href="#category2" data-option-value=".category2">Vectors</a></li>
-                                <li><a href="#category2" data-option-value=".category3">Editorial</a></li>
-                                <li><a href="#category3" data-option-value=".category4">Illustrations</a></li>
-                                <li><a href="#category4" data-option-value=".category5">Footage</a></li>
-                            </ul>
-                        </div>
+                    <div class="option-combo" style="margin-bottom: 1%">
+                        <ul id="filter" class="option-set" data-option-key="filter">
+                            <li><a href="~/Home/Photos" class="selected">Show all</a></li>
+                            <li><a href="#category1" data-option-value=".category1">Photos</a></li>
+                            <li><a href="#category2" data-option-value=".category2">Vectors</a></li>
+                            <li><a href="#category2" data-option-value=".category3">Editorial</a></li>
+                            <li><a href="#category3" data-option-value=".category4">Illustrations</a></li>
+                            <li><a href="#category4" data-option-value=".category5">Footage</a></li>
+                        </ul>
                     </div><!-- FILTER BUTTONS -->
 
                     <div class="row narrow">
@@ -67,7 +63,7 @@
                             @foreach (var item in Model)
                             {
 
-                                <div class="col-md-3 category1">
+                                <div class="col-md-3">
                                     <div class="image-box">
                                         @* 384x282 *@
                                         <a href="~/Home/DetailPhoto/@item.ID" title="@item.photoName"><img src="@item.photoLink" alt="Photo" height="282" /></a>

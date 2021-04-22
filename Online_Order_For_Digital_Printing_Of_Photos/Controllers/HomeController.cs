@@ -2,6 +2,7 @@
 using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO;
 using Online_Order_For_Digital_Printing_Of_Photos.Models.Entities;
 using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,22 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
             photoDAO = new PhotoDAO();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, int pageSize = 20)
         {
-            var model = photoDAO.GetAllPhotos();
+            var model = photoDAO.GetPhoto(page, pageSize);
             return View(model);
         }
 
         public ActionResult Photos()
         {
-            var model = new PhotoDAO().GetPhoto();
+            return View();
+        }
 
-            return View(model);
+        public PartialViewResult GetPhotoForPhotos(int? page)
+        {
+            int pageSize = 24;
+            int pageNumber = (page ?? 1);
+            return PartialView("_GetDataPhotoForPhotos", new PhotoDAO().GetPhotoForPhotos().ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult DetailPhoto(string id)

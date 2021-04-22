@@ -1,12 +1,9 @@
-﻿@model IEnumerable<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.ViewUserPhotoModel>
+﻿@model PagedList.PagedList<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.ViewUserPhotoModel>
 @using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
 
 @{
     ViewBag.Title = "MyPhoto";
     Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
-
-    var cate = new CateDAO().GetAllCategory();
-    var photo = new PhotoDAO().GetAllPhotos();
 
 }
 @section scripts {
@@ -25,109 +22,8 @@
 <h2 style="text-align:center">My Photos</h2>
 
 
-<div class="panel-body">
+<div class="panel-body" id="MyPhoto">
     <div class="table-responsive">
-        <table class="table table-bordered table-striped table-condensed mb-none">
-            <thead>
-                <tr>
-                    <th class="text-right">
-                        @Html.DisplayNameFor(model => model.photo.ID)
-                    </th>
-                    <th class="text-right">
-                        @Html.DisplayNameFor(model => model.photo.photoName)
-                    </th>
-                    <th class="text-right">
-                        @Html.DisplayNameFor(model => model.photo.description)
-                    </th>
-                    <th class="text-right">
-                        @Html.DisplayNameFor(model => model.photo.status)
-                    </th>
-                    <th class="text-right">
-                        @Html.DisplayNameFor(model => model.photo.cateID)
-                    </th>
-                    <th class="text-right">
-                        @Html.DisplayNameFor(model => model.photo.photoLink)
-                    </th>
-                    <th class="text-right">
-                        @Html.DisplayNameFor(model => model.photo.formatID)
-                    </th>
-                    <th class="text-right">
-                        @Html.DisplayNameFor(model => model.photo.Price)
-                    </th>
-                    <th class="text-right">
-                        Actions
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="text-right">
-                            @Html.DisplayFor(modelItem => item.photo.ID)
-                        </td>
-                        <td class="text-right">
-                            @Html.DisplayFor(modelItem => item.photo.photoName)
-                        </td>
-                        <td class="text-right">
-                            @Html.DisplayFor(modelItem => item.photo.description)
-                        </td>
-
-
-                        @switch (item.photo.status)
-                        {
-                            case 1:
-                                <td class="text-right">
-                                    Active
-                                </td>
-                                break;
-                            case 0:
-                                <td class="text-right">
-                                    Disalble
-                                </td>
-                                break;
-
-                            default:
-                                <td class="text-right"></td>
-                                break;
-                        }
-
-                        @if (item.photo.cateID != null)
-                        {
-                            foreach (var x in cate)
-                            {
-                                if (item.photo.cateID == x.cateID)
-                                {
-                                    <td class="text-right">
-                                        @x.cateName
-                                    </td>
-                                }
-                            }
-                        }
-                        else
-                        {
-                            <td class="text-right"></td>
-                        }
-
-
-                        <td class="text-right">
-                            @Html.DisplayFor(modelItem => item.photo.photoLink)
-                        </td>
-                        <td class="text-right">
-                            @Html.DisplayFor(modelItem => item.photo.formatID)
-                        </td>
-                        <td class="text-right">
-                            @Html.DisplayFor(modelItem => item.photo.Price)
-                        </td>
-                        <td class="text-right">
-                            @Html.ActionLink("Edit", "Edit", new { id = item.photo.photoID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.photo.photoID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.photo.photoID })
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
+        @{ Html.RenderAction("GetForMyPhoto", "User", new { page = 1 });}
     </div>
 </div>

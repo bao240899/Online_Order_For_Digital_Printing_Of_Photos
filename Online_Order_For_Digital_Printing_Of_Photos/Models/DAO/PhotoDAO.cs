@@ -1,6 +1,7 @@
 ﻿using Online_Order_For_Digital_Printing_Of_Photos.Models.Entities;
 using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews;
 using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.Cart;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,21 +60,31 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
 
         }
 
-        private List<PhotoModel> Redirect(string v)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Photos> GetPhoto()
+        public IEnumerable<Photos> GetPhoto(int page, int pageSize)
         {
             List<Photos> photo = db.Photos.ToList();
 
-            var res = photo.GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
+            var res = photo.OrderBy(x => x.ID).GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
             {
                 ID = gr.Key.ID,
                 photoName = gr.Key.photoName,
                 photoLink = gr.Key.photoLink,
                 cateID = gr.Key.cateID
+            }).ToPagedList(page, pageSize);
+
+            return res;
+
+        }
+
+        public IEnumerable<Photos> GetPhotoForPhotos()
+        {
+            List<Photos> photo = db.Photos.ToList();
+
+            var res = photo.OrderBy(x => x.ID).GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
+            {
+                photoLink = gr.Key.photoLink,
+                ID = gr.Key.ID,
+                photoName = gr.Key.photoName
             }).ToList();
 
             return res;
@@ -94,7 +105,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
                                    photo = ps,
                                    userphoto = userps,
                                    format = FM
-                               }).Where(x => x.userphoto.userID == userid).ToList();
+                               }).Where(x => x.userphoto.userID == userid).OrderBy(x => x.photo.photoName).ToList();
             return photoRecord;
         }
 
@@ -114,8 +125,9 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             db.SaveChanges();
         }
         ///////////////////////
-        public PhotoModelView GetPhotoByPhotoID( int photoID) {
-            var rs = db.Photos.Where(d => d.photoID == photoID).Select(d => new PhotoModelView { photoID=d.photoID, photoName=d.photoName, description=d.description, status=d.status, cateID=d.cateID, photoLink=d.photoLink,formatID=d.formatID, Price=d.Price,ID=d.ID}).FirstOrDefault();
+        public PhotoModelView GetPhotoByPhotoID(int photoID)
+        {
+            var rs = db.Photos.Where(d => d.photoID == photoID).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).FirstOrDefault();
             return rs;
         }
     }
