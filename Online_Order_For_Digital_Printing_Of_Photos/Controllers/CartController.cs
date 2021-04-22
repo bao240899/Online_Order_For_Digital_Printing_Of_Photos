@@ -128,6 +128,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                                 return RedirectToAction("Index", "Cart");
                             }
                         }
+                        Session["orderCode"] = _order.orderCode;
                         return RedirectToAction("PaymentWithPaypal", "PayPal");
                     }
                     /*Session[CommonConstant.CART_SESSION] = null;*/

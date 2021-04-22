@@ -6,13 +6,27 @@
 }
 
 
+@section scripts {
+    <script>
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+
+    </script>
+}
+
+
+
+
 <section style="margin: 0; padding:0">
     @Html.Partial("~/Views/Shared/UserLayout/_Sidebar.cshtml")
+    
     <div class="block">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1 column">
-
+                    @Html.Partial("~/Views/Shared/UserLayout/_Alert.cshtml")
                     <div class="account-tabs">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#plan"><i class="fa fa-bolt"></i>Overview</a></li>
@@ -57,18 +71,19 @@
                                                 {
                                                     @Html.AntiForgeryToken()
                                                     <div class="row">
+
                                                         <div class="col-md-12">
                                                             <div class="field">
                                                                 <i class="ti-key"></i>
                                                                 @Html.HiddenFor(model => model.userID, new { htmlAttributes = new { @class = "form-control", Value = Model.userID } })
-                                                                @Html.EditorFor(model => model.userPwd, new { htmlAttributes = new { @class = "", @placeholder = "Enter New Password" } })
+                                                                @Html.EditorFor(model => model.userPwd, new { htmlAttributes = new { @id = "npw", @placeholder = "Enter New Password" } })
                                                                 @Html.ValidationMessageFor(model => model.userPwd, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="field">
                                                                 <i class="ti-key"></i>
-                                                                @Html.EditorFor(model => model.confirmPassword, new { htmlAttributes = new { @class = "", @placeholder = " Enter Confirm Password" } })
+                                                                @Html.EditorFor(model => model.confirmPassword, new { htmlAttributes = new { @id = "cpw", @placeholder = " Enter Confirm Password" } })
                                                                 @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
@@ -88,7 +103,7 @@
                                                             <div class="field">
                                                                 <i class="ti-key"></i>
                                                                 @Html.HiddenFor(model => model.userID, new { htmlAttributes = new { @class = "form-control", Value = Model.userID } })
-                                                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "", @placeholder = "Enter New Email" } })
+                                                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @id = "changeEmail", @placeholder = "Enter New Email" } })
                                                                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
@@ -112,7 +127,7 @@
                                                             <div class="field">
                                                                 <i class="ti-key"></i>
                                                                 @Html.HiddenFor(model => model.userID, new { htmlAttributes = new { @class = "form-control", Value = Model.userID } })
-                                                                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "" }, @placeholder = "Enter New Adress" })
+                                                                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @id = "changeAdd" }, @placeholder = "Enter New Adress" })
                                                                 @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>

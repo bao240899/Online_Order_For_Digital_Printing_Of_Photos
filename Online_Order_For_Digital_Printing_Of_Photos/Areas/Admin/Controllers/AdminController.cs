@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Online_Order_For_Digital_Printing_Of_Photos.Areas.Admin.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         //declare dao
         public UserDAO userDao = null;

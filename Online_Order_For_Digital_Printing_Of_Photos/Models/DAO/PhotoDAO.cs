@@ -32,10 +32,24 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             }).ToList();
             return res;
         }
-
+        public List<PhotoModel> GetPhotoToManager()
+        {
+            var res = db.Photos.Select(x => new PhotoModel
+            {
+                photoID = x.photoID,
+                photoName = x.photoName,
+                description = x.description,
+                status = x.status,
+                cateID = x.cateID,
+                photoLink = x.photoLink,
+                formatID = x.formatID,
+                ID = x.ID
+            }).ToList();
+            return res;
+        }
         public PhotoModel GetPhotoByID(string id)
         {
-            //List<Photos> photo = db.Photos.ToList();
+            //List<Photos> photo = db.Photos.ToList();.Where(c=>c.Key.ID == id) 
             var res = db.Photos.GroupBy(c => new { c.ID, c.description, c.photoLink, c.photoName, c.cateID }).Select(x => new PhotoModel
             {
                 ID = x.Key.ID,
@@ -43,7 +57,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
                 description = x.Key.description,
                 cateID = x.Key.cateID,
                 photoLink = x.Key.photoLink,
-            }).SingleOrDefault(x => x.ID == id);
+            }).FirstOrDefault(x => x.ID == id);
             return res;
         }
 
@@ -108,7 +122,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
                                }).Where(x => x.userphoto.userID == userid).OrderBy(x => x.photo.photoName).ToList();
             return photoRecord;
         }
-
+        
         public Photos getphotofordownload(int id)
         {
             return db.Photos.Find(id);
@@ -125,10 +139,25 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             db.SaveChanges();
         }
         ///////////////////////
-        public PhotoModelView GetPhotoByPhotoID(int photoID)
-        {
-            var rs = db.Photos.Where(d => d.photoID == photoID).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).FirstOrDefault();
+        public PhotoModelView GetPhotoByPhotoID( int photoID) {
+            var rs = db.Photos.Where(d => d.photoID == photoID).Select(d => new PhotoModelView { photoID=d.photoID, photoName=d.photoName, description=d.description, status=d.status, cateID=d.cateID, photoLink=d.photoLink,formatID=d.formatID, Price=d.Price,ID=d.ID}).FirstOrDefault();
             return rs;
+        }
+        public int changeStasus(int photoID) {
+            Photos photo = db.Photos.Where(d => d.photoID == photoID).FirstOrDefault();
+            if (photo.status == 0) {
+                photo.status = 1; //enable;
+            }
+            else
+            {
+                photo.status = 0; // disable
+            }
+            int resultAction = db.SaveChanges();
+            if (resultAction > 0)
+            {
+                return 1;
+            }
+            return 0;
         }
     }
 }

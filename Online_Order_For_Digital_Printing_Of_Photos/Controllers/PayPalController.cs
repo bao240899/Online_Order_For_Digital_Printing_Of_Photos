@@ -1,4 +1,5 @@
 ﻿using Online_Order_For_Digital_Printing_Of_Photos.Common;
+using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO;
 using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.Cart;
 using PayPal.Api;
 using System;
@@ -11,20 +12,27 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
 {
     public class PayPalController : Controller
     {
-        // GET: PayPal
-        // GET: PayPal
+        OrderDao orderDao = new OrderDao();
+        PhotoDAO photoDAO = new PhotoDAO();
         public ActionResult Index()
         {
             return View();
         }
         public ActionResult Failure()
         {
-            return View();
+            string orderCode = (string)Session["orderCode"];
+            orderDao.OrderFail(orderCode);
+            Session["orderCode"]=null;
+            return RedirectToAction("Index", "Cart");
         }
         public ActionResult Success()
         {
-            //idsks
-            return View();
+            List<CartItemModelView> Cart = (List<CartItemModelView>)Session[CommonConstant.CART_SESSION];
+            foreach ( var item in Cart) {
+                photoDAO.changeStasus(item.photo.photoID);
+            }
+            Session[Common.CommonConstant.CART_SESSION] = null;
+            return RedirectToAction("DownLoadedPhoto", "User");
         }
         //work with paypal payment
         private Payment payment;
@@ -69,7 +77,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
             var transList = new List<Transaction>();
             transList.Add(new Transaction
             {
-                description = "Test Payment",
+                description = " Payment",
                 invoice_number = Convert.ToString((new Random()).Next(100000)),
                 amount = amount,
                 item_list = lsItem,
@@ -124,17 +132,17 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                     var executePayment = ExecutePayment(apiContext, payerID, Session[guid] as string);
                     if (executePayment.state.ToLower() != "approved")
                     {
-                        return View("Failure");
+                        return RedirectToAction("Failure", "PayPal");
                     }
                 }
             }
             catch (PayPal.PaymentsException ex)
             {
                 Models.PayPalModel.PaypalLogger.Log("Error: " + ex.Message);
-                return View("Failure");
+                return RedirectToAction("Failure", "PayPal");
             }
-            Session[Common.CommonConstant.CART_SESSION] = null;
-            return View("Success");
+
+            return RedirectToAction("Success", "PayPal");
         }
     }
 }

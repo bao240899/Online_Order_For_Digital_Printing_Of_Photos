@@ -14,11 +14,34 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
 
     public class UserController : Controller
     {
+        //Alert
+        protected void SetAlert(string message, string type)
+        {
+            TempData["AlertMessage"] = message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "failse")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
+            else if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
+            //else
+            //{
+            //    TempData["AlertType"] = "alert-info";
+        }
+
+
         UserDAO userDao = null;
+        OrderDao orderDao = null;
 
         public UserController()
         {
-
+            orderDao = new OrderDao();
             userDao = new UserDAO();
         }
         public ActionResult Login()
@@ -139,32 +162,61 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         [HttpPost]
         public ActionResult ChangePwd(UserModelView _user)
         {
-            var rs = userDao.ChangePwd(_user);
-            if (rs == 0)
+            var newPw = Request.Params["npw"];
+            var ConfirmPw = Request.Params["cpw"];
+
+            if (newPw == null || newPw == "" || ConfirmPw == null || ConfirmPw == "")
             {
-                return RedirectToAction("Login", "User");
+                SetAlert("You need Enter New Password!!! ", "warning");
+                return Redirect("~/User/AccountDetail");
             }
-            return RedirectToAction("AccountDetail", "User");
+            else
+            {
+                var rs = userDao.ChangePwd(_user);
+                if (rs == 0)
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                return RedirectToAction("AccountDetail", "User");
+            }
         }
         [HttpPost]
         public ActionResult ChangeEmail(UserModelView _user)
         {
-            var rs = userDao.ChangeEmail(_user);
-            if (rs == 0)
+            var newPw = Request.Params["changeEmail"];
+            if (newPw == null || newPw == "")
             {
-                return RedirectToAction("Login", "User");
+                SetAlert("Email can not null!!! ", "warning");
+                return Redirect("~/User/AccountDetail");
             }
-            return RedirectToAction("AccountDetail", "User");
+            else
+            {
+                var rs = userDao.ChangeEmail(_user);
+                if (rs == 0)
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                return RedirectToAction("AccountDetail", "User");
+            }
         }
         [HttpPost]
         public ActionResult ChangeAddress(UserModelView _user)
         {
-            var rs = userDao.ChangeAddress(_user);
-            if (rs == 0)
+            var newPw = Request.Params["changeAdd"];
+            if (newPw == null || newPw == "")
             {
-                return RedirectToAction("Login", "User");
+                SetAlert("Address can not be null!!! ", "warning");
+                return Redirect("~/User/AccountDetail");
             }
-            return RedirectToAction("AccountDetail", "User");
+            else
+            {
+                var rs = userDao.ChangeAddress(_user);
+                if (rs == 0)
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                return RedirectToAction("AccountDetail", "User");
+            }
         }
 
         public ActionResult MyPhoto()
@@ -188,7 +240,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
             return PartialView("_PartialDataMyPhoto", new PhotoDAO().GetPhotoByUserid(session.userID).ToPagedList(pageNumber, pageSize));
         }
 
-
         public ActionResult MyOrder()
         {
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
@@ -201,6 +252,12 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                 var model = new OrderDao().GetOrderByUserID(session.userID);
                 return View(model);
             }
+        }
+        public ActionResult DownLoadedPhoto()
+        {
+            UserSession user = (UserSession)Session[CommonConstant.USER_SESSION];
+            var rs = orderDao.GetPhotoDownLoadedByUserid(user.userID);
+            return View(rs);
         }
     }
 }
