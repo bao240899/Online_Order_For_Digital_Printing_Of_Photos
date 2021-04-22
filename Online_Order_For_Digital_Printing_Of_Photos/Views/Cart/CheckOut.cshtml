@@ -1,0 +1,161 @@
+﻿
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Picstock HTML Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="css/color.css" />
+
+</head>
+<section>
+    <div class="block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 column">
+                    <div class="checkout-block">
+                        <div class="icon-title dark">
+                            <span><i class="ti-dropbox"></i></span>
+                            <h2>Checkout</h2>
+                            <i>Billing Information</i>
+                        </div>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Country / Region:</label>
+                                    <select class="select">
+                                        <option>United States</option>
+                                        <option>Russia</option>
+                                        <option>China</option>
+                                        <option>United Kingdom</option>
+                                        <option>Japan</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Country / Region:</label>
+                                    <select class="select">
+                                        <option>United States</option>
+                                        <option>Russia</option>
+                                        <option>China</option>
+                                        <option>United Kingdom</option>
+                                        <option>Japan</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Country / Region:</label>
+                                    <select class="select">
+                                        <option>United States</option>
+                                        <option>Russia</option>
+                                        <option>China</option>
+                                        <option>United Kingdom</option>
+                                        <option>Japan</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Address:</label>
+                                    <div class="field"><input type="text" placeholder="Address" /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>State / Province:</label>
+                                    <div class="field"><input type="text" placeholder="State / Province" /></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Zip Postal Code:</label>
+                                    <div class="field"><input type="text" placeholder="Zip Postal Code" /></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Phone:</label>
+                                    <div class="field"><input type="text" placeholder="Phone" /></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="checkout-block payment-information">
+                        <div class="icon-title dark">
+                            <span><i class="ti-dropbox"></i></span>
+                            <h2>Payment information</h2>
+                            <i>Billing Information</i>
+                        </div>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Credit Card Available</label>
+                                    <div class="credit-card">
+                                        <a href="#" title=""><img src="images/resource/credit1.jpg" alt="" /></a>
+                                        <a href="#" title=""><img src="images/resource/credit2.jpg" alt="" /></a>
+                                        <a href="#" title=""><img src="images/resource/credit3.jpg" alt="" /></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Credit card number:</label>
+                                    <select class="select">
+                                        <option>United States</option>
+                                        <option>Russia</option>
+                                        <option>China</option>
+                                        <option>United Kingdom</option>
+                                        <option>Japan</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Expires:</label>
+                                    <select class="select">
+                                        <option>United States</option>
+                                        <option>Russia</option>
+                                        <option>China</option>
+                                        <option>United Kingdom</option>
+                                        <option>Japan</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Security code:</label>
+                                    <select class="select">
+                                        <option>United States</option>
+                                        <option>Russia</option>
+                                        <option>China</option>
+                                        <option>United Kingdom</option>
+                                        <option>Japan</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <span class="total">Total:</span>
+                                    <strong class="total-price">$ 199.00 USD</strong>
+                                    <p>I have read and agree to the terms and conditions of the content license agreement.</p>
+                                    <button data-letters="Buy Now" class="theme-btn" type="submit">Buy Now</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-5 column">
+                    <div class="order-confirmation">
+                        <div class="icon-title dark">
+                            <span><i class="ti-dropbox"></i></span>
+                            <h2>Editorder Summary</h2>
+                            <i>Billing Information</i>
+                        </div>
+                        <a class="edit" href="#" title="">Edit</a>
+                        <ul>
+                            <li>- 1 Month</li>
+                            <li>250 Images / Month</li>
+                            <li>$ 199.00</li>
+                        </ul>
+                        <span class="total">Total:</span>
+                        <strong class="total-price">$ 199.00 USD</strong>
+                        <p>You can't add more credits to your order</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

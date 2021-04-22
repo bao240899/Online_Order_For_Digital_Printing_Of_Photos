@@ -12,7 +12,9 @@
             </nav><!-- Navigation -->
             @{
                 var session = (UserSession)Session[CommonConstant.USER_SESSION];
-
+                var list = new List<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.Cart.CartItemModelView>();
+                ////////
+                
             }
             @if (session == null)
             {
@@ -20,7 +22,16 @@
                     <ul list-unstyled>
                         <li><a href="~/User/Login" title="">Log in</a></li>
                         <li><a href="~/User/SignUp" title="">Sign up</a></li>
-                        <li><a href="~/Cart" title="">Cart (0)</a></li>
+                        @if (Session[CommonConstant.CART_SESSION] != null)
+                        {
+                            list = (List
+                            <Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.Cart.CartItemModelView>)Session[CommonConstant.CART_SESSION];
+                            <li><a href="~/Cart" title="">Cart (@list.Count.ToString())</a></li>
+                        }
+                        else {
+                            <li><a href="~/Cart" title="">Cart (0)</a></li>
+                        }
+
                     </ul>
                 </div><!-- Header Links -->
 
@@ -29,7 +40,16 @@
             {
                 <div class="header-links">
                     <ul class="list-unstyled">
-                        <li><a href="~/Cart" title="">Cart (0)</a></li>
+                        @if (Session[CommonConstant.CART_SESSION] != null)
+                        {
+                            list = (List
+                            <Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.Cart.CartItemModelView>)Session[CommonConstant.CART_SESSION];
+                            <li><a href="~/Cart" title="">Cart (@list.Count.ToString())</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Cart" title="">Cart (0)</a></li>
+                        }
                         <li>
                             @*@Html.ActionLink("My Profile", "Profile", "User", new { id = session.userID }, "")*@
                             <a href="~/User/AccountDetail">My Profile</a>
@@ -42,7 +62,7 @@
 
 
             }
-            
+
         </div>
     </div>
 </header><!-- Header -->

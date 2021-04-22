@@ -9,6 +9,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Common
     {
         public static string USER_SESSION = "USER_SESSION";
 
-        
+        public static string CART_SESSION = "CART_SESSION";
     }
 }

@@ -1,0 +1,174 @@
+﻿@model Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.Cart.OrdersModelView
+@using Online_Order_For_Digital_Printing_Of_Photos.Common
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+}
+
+<div>
+    <section>
+        <div class="block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 column">
+                        <div class="cart-block">
+                            <div class="icon-title dark">
+                                <span><i class="ti-dropbox"></i></span>
+                                <h2>My Shopping Cart</h2>
+                                <i>Billing Information</i>
+                            </div>
+                            <form class="field-set ac-custom ac-checkbox ac-checkmark  ac-radio ac-circle">
+                                <div class="field-row gray">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="field-col">
+                                                <div class="checkbox-container"><input id="cb1" name="cb1" type="checkbox" /></div>
+                                                <div class="check-info">
+                                                    <span>Buy From Credits</span>
+                                                </div>
+                                            </div><!-- Field Column -->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="field-col">
+                                                <div class="checkbox-container"><input id="cb2" name="cb2" type="checkbox" /></div>
+                                                <div class="check-info">
+                                                    <span>Monthly Package</span>
+                                                </div>
+                                            </div><!-- Field Column -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="shopping-cart">
+                                <ul>
+                                    @{
+                                        var total = 0;
+                                    }
+                                    @if (ViewBag.Cart != null && ViewBag.Cart.Count != 0)
+                                    {
+                                        foreach (var item in ViewBag.Cart)
+                                        {
+                                            total = total + item.photo.Price;
+                                            <li>
+                                                <a href="~/Cart/Remove?photoID=@item.photo.photoID">
+                                                    <span class="remove-item"><i class="fa fa-remove"></i></span>
+                                                </a>
+                                                <div class="cart-product">
+                                                    <img src="@item.photo.photoLink" alt="" style="width:170px;height:133px;" />
+                                                    <div class="cart-product-detail">
+                                                        <h4><a href="single-page.html" title="">@item.photo.photoName</a></h4>
+                                                        <span class="img-id">image id: <i>123456</i></span>
+                                                        <div class="selectbox">
+                                                            <i>Image Size:</i>
+                                                            <select class="select">
+                                                                <option>4745 × 3434 px – $@item.photo.Price</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- Cart Product -->
+                                            </li>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <h4>No have photo in Cart</h4>
+                                        </li>
+                                    }
+                                    <li>
+                                        <h3>Total :  @total.ToString() usd</h3>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 column">
+                        <div class="order-confirmation">
+                            <div class="icon-title dark">
+                                <span><i class="ti-dropbox"></i></span>
+                                <h2>Order Summary</h2>
+                                <i>Billing Information</i>
+                            </div>
+                            @{
+                                var orderCode = Guid.NewGuid().ToString();
+                                var date = DateTime.Now;
+                                var UserSession = (UserSession)Session[CommonConstant.USER_SESSION];
+                            }
+
+
+                            <div>
+                                @if (UserSession == null)
+                                {
+                                    <a class="theme-btn" style="margin-left: 95px;" data-letters="Login To Checkout" href=~/User/Login title="">Login To Checkout</a>
+                                }
+                                else
+                                {
+                                    using (Html.BeginForm("AddOrder", "Cart", FormMethod.Post, new { }))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <form class="registration-form">
+                                            <div class="row">
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(model => model.userID, new { @Value = UserSession.userID })
+                                                @Html.HiddenFor(model => model.orderID, new { })
+                                                @Html.HiddenFor(model => model.orderStatus, new { @Value = 1 })
+                                                <div class="col-md-12 form-group">
+                                                    @Html.LabelFor(model => model.orderCode, new { @class = "control-label col-md-2", @Value = orderCode })
+                                                    <div class="field">
+                                                        <i class="fas fa-qrcode"></i>
+                                                        @Html.TextBoxFor(model => model.orderCode, new {  @class = "form-control", @Value = orderCode, @placeholder = orderCode, @readonly = "readonly", @style = "margin-left: 10px;" })
+                                                        @Html.ValidationMessageFor(model => model.orderCode, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 form-group">
+                                                    @Html.LabelFor(model => model.orderDay, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="field">
+                                                        <i class="fas fa-table"></i>
+                                                        @Html.TextBoxFor(model => model.orderDay, new { @class = "form-control", @Value = date, @placeholder = date, @readonly = "readonly", @style = "margin-left: 10px;" })
+                                                        @Html.ValidationMessageFor(model => model.orderDay, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 form-group">
+                                                    @Html.LabelFor(model => model.totalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="field">
+                                                        <i class="fas fa-money-bill"></i>
+                                                        @Html.TextBoxFor(model => model.totalPrice, new { @class = "form-control", @Value = total, @placeholder = total + " $", @readonly = "readonly", @style = "margin-left: 10px;" })
+                                                        @Html.ValidationMessageFor(model => model.totalPrice, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 form-group">
+                                                    @Html.LabelFor(model => model.deliveryAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="field">
+                                                        <i class="fas fa-address-card"></i>
+                                                        @Html.TextBoxFor(model => model.deliveryAddress, new { @class = "form-control", @Value = "abc", @placeholder = "address", @style = "margin-left: 10px;" })
+                                                        @Html.ValidationMessageFor(model => model.deliveryAddress, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 form-group">
+                                                    @Html.LabelFor(model => model.paymentMethod, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="field">
+                                                        <i class="far fa-credit-card"></i>
+                                                        @Html.TextBoxFor(model => model.paymentMethod, new { @class = "form-control", @Value = 1, @placeholder = "PayPal !", @readonly = "readonly", @style = "margin-left: 10px;" })
+                                                        @Html.ValidationMessageFor(model => model.paymentMethod, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*<a class="theme-btn" style="margin-left: 95px;" data-letters="Proceed To Checkout" title=""> Proceed To Checkout</a>*@
+                                            <input type="submit" class="theme-btn" style="margin-left: 95px;" data-letters="Proceed To Checkout" title="" , value="Proceed To Checkout" />
+                                        </form>
+                                    }
+
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

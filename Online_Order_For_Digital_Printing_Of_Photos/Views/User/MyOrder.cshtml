@@ -1,0 +1,42 @@
+﻿@model List<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.Cart.OrdersModelView>
+
+@{
+    ViewBag.Title = "MyOrder";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+}
+<section style="margin: 0; padding:0">
+    @Html.Partial("~/Views/Shared/UserLayout/_Sidebar.cshtml")
+    <div class="block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 column">
+
+                    <div class="account-tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#plan"><i class="fa fa-bolt"></i>Overview</a></li>
+                            <li><a data-toggle="tab" href="#profile"><i class="fa fa-gg"></i> Profile</a></li>
+                            <li><a data-toggle="tab" href="#billing"><i class="fa fa-object-ungroup"></i> Billing</a></li>
+                            <li><a data-toggle="tab" href="#purchase-history"><i class="fa fa-tripadvisor"></i> Purchase History</a></li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div id="purchase-history" class="tab-pane fade in active">
+                                @foreach (var item in Model) {
+                                    <div class="purchase-history">
+                                        <strong class="purchase-date">Date</strong>
+                                        <strong class="purchase-desc">Description</strong>
+                                        <strong class="purchase-total">Total</strong>
+                                        <span class="purchase-date">@item.orderDay</span>
+                                        <span class="purchase-desc">@item.deliveryAddress</span>
+                                        <span class="purchase-total">US$ @item.totalPrice.00</span>
+                                    </div>
+                                }
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

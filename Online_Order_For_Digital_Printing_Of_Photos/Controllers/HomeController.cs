@@ -2,7 +2,6 @@
 using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO;
 using Online_Order_For_Digital_Printing_Of_Photos.Models.Entities;
 using Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews;
-using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,29 +12,23 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
 {
     public class HomeController : Controller
     {
+        PhotoDAO photoDAO = null;
         public HomeController()
         {
-
+            photoDAO = new PhotoDAO();
         }
 
-        public ActionResult Index(int page = 1, int pageSize = 20)
+        public ActionResult Index()
         {
-            var model = new PhotoDAO().GetPhoto(page, pageSize);
+            var model = photoDAO.GetAllPhotos();
             return View(model);
         }
 
-        
+        public ActionResult Photos()
+        {
+            var model = new PhotoDAO().GetPhoto();
 
-        public ActionResult Photos(int page=1, int pageSize=20)
-        {
-            //var model = new PhotoDAO().GetPhoto(page, pageSize);
-            return View();
-        }
-        public PartialViewResult GetPhotoForPhotos(int? page)
-        {
-            int pageSize = 24;
-            int pageNumber = (page ?? 1);
-            return PartialView("_GetDataPhotoForPhotos", new PhotoDAO().GetPhotoForPhotos().ToPagedList(pageNumber, pageSize));
+            return View(model);
         }
 
         public ActionResult DetailPhoto(string id)
