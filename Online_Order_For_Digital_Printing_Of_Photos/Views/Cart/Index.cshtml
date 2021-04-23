@@ -57,7 +57,7 @@
                                                     <img src="@item.photo.photoLink" alt="" style="width:170px;height:133px;" />
                                                     <div class="cart-product-detail">
                                                         <h4><a href="single-page.html" title="">@item.photo.photoName</a></h4>
-                                                        <span class="img-id">image id: <i>123456</i></span>
+                                                        <span class="img-id">image id: <i>@item.photo.ID</i></span>
                                                         <div class="selectbox">
                                                             <i>Image Size:</i>
                                                             <select class="select">
@@ -117,15 +117,15 @@
                                                 @Html.HiddenFor(model => model.orderID, new { })
                                                 @Html.HiddenFor(model => model.orderStatus, new { @Value = 1 })
                                                 <div class="col-md-12 form-group">
-                                                    @Html.LabelFor(model => model.orderCode, new { @class = "control-label col-md-2", @Value = orderCode })
+                                                    @Html.LabelFor(model => model.orderCode, new { @class = "control-label col-md-2", @Style = "width: 100%;", @Value = orderCode })
                                                     <div class="field">
                                                         <i class="fas fa-qrcode"></i>
-                                                        @Html.TextBoxFor(model => model.orderCode, new {  @class = "form-control", @Value = orderCode, @placeholder = orderCode, @readonly = "readonly", @style = "margin-left: 10px;" })
+                                                        @Html.TextBoxFor(model => model.orderCode, new { @class = "form-control", @Value = orderCode, @placeholder = orderCode, @readonly = "readonly", @style = "margin-left: 10px;" })
                                                         @Html.ValidationMessageFor(model => model.orderCode, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 form-group">
-                                                    @Html.LabelFor(model => model.orderDay, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    @Html.LabelFor(model => model.orderDay, htmlAttributes: new { @class = "control-label col-md-2", @Style = "width: 100%;" })
                                                     <div class="field">
                                                         <i class="fas fa-table"></i>
                                                         @Html.TextBoxFor(model => model.orderDay, new { @class = "form-control", @Value = date, @placeholder = date, @readonly = "readonly", @style = "margin-left: 10px;" })
@@ -133,7 +133,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 form-group">
-                                                    @Html.LabelFor(model => model.totalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    @Html.LabelFor(model => model.totalPrice, htmlAttributes: new { @class = "control-label col-md-2", @Style = "width: 100%;" })
                                                     <div class="field">
                                                         <i class="fas fa-money-bill"></i>
                                                         @Html.TextBoxFor(model => model.totalPrice, new { @class = "form-control", @Value = total, @placeholder = total + " $", @readonly = "readonly", @style = "margin-left: 10px;" })
@@ -141,24 +141,24 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 form-group">
-                                                    @Html.LabelFor(model => model.deliveryAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    @Html.LabelFor(model => model.deliveryAddress, htmlAttributes: new { @class = "control-label col-md-2", @Style = "width: 100%;" })
                                                     <div class="field">
                                                         <i class="fas fa-address-card"></i>
                                                         @Html.TextBoxFor(model => model.deliveryAddress, new { @class = "form-control", @Value = "abc", @placeholder = "address", @style = "margin-left: 10px;" })
                                                         @Html.ValidationMessageFor(model => model.deliveryAddress, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 form-group">
+                                                @*<div class="col-md-12 form-group">
                                                     @Html.LabelFor(model => model.paymentMethod, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="field">
-                                                        <i class="far fa-credit-card"></i>
-                                                        @Html.TextBoxFor(model => model.paymentMethod, new { @class = "form-control", @Value = 1, @placeholder = "PayPal !", @readonly = "readonly", @style = "margin-left: 10px;" })
-                                                        @Html.ValidationMessageFor(model => model.paymentMethod, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
+                                                        <i class="far fa-credit-card"></i>*@
+                                                @Html.HiddenFor(model => model.paymentMethod, new { @class = "form-control", @Value = 1, @placeholder = "PayPal !", @readonly = "readonly", @style = "margin-left: 10px;" })
+                                                @*@Html.ValidationMessageFor(model => model.paymentMethod, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>*@
                                             </div>
                                             @*<a class="theme-btn" style="margin-left: 95px;" data-letters="Proceed To Checkout" title=""> Proceed To Checkout</a>*@
-                                            <input type="submit" class="theme-btn" style="margin-left: 95px;" data-letters="Proceed To Checkout" title="" , value="Proceed To Checkout" />
+                                            <input type="submit" class="theme-btn" style="margin-left: 95px;" data-letters="Checkout With PayPal" title="" , value="Checkout With PayPal" />
                                         </form>
                                     }
 

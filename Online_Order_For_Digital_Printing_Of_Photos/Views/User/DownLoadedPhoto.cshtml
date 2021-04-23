@@ -1,0 +1,37 @@
+﻿@model List<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.Cart.PhotoModelView>
+@{ ViewBag.Title = "DownLoadedPhoto";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+
+}
+@Html.Partial("~/Views/Shared/UserLayout/_Sidebar.cshtml")
+<section>
+    <div class="block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 column">
+                    <div class="title center">
+                        <h2>MY PHOTO DOWNLOADS</h2>
+                        <i>Download Images Here</i>
+                    </div>
+
+                    <div class="free-images">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-md-3">
+                                    <div class="free-download">
+                                        <img src="@item.photoLink" alt="photo" style="width:228px;height:220px;" />
+                                        <strong>@item.photoName</strong>
+                                        <span><a href="~/Photo/Download/@item.photoID" title="">Download</a></span>
+                                    </div><!-- Free Download -->
+                                </div>
+                            }
+
+                        </div>
+                    </div><!-- Free Images -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

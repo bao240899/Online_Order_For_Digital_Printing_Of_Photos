@@ -93,7 +93,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                 }
                 else if (res == -2)
                 {
-                    ModelState.AddModelError("", "passwrod isvalid!");
+                    ModelState.AddModelError("", "Username or Passwrod isvalid!");
                 }
                 else
                 {
@@ -255,9 +255,27 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         }
         public ActionResult DownLoadedPhoto()
         {
-            UserSession user = (UserSession)Session[CommonConstant.USER_SESSION];
-            var rs = orderDao.GetPhotoDownLoadedByUserid(user.userID);
-            return View(rs);
+            var session = (UserSession)Session[CommonConstant.USER_SESSION];
+            if (session == null)
+            {
+                return Redirect("~/User/Login");
+            }
+            else
+            {
+                UserSession user = (UserSession)Session[CommonConstant.USER_SESSION];
+                var rs = orderDao.GetPhotoDownLoadedByUserid(user.userID);
+                if (rs != null)
+                {
+                    return View(rs);
+                }
+                else
+                {
+                    SetAlert("You don't have any photos to download yet!!! ", "warning");
+                    return Redirect("~/User/AccountDetail");
+                }
+                
+            }
+            
         }
     }
 }

@@ -4,7 +4,6 @@
     ViewBag.Title = "ManagerUser";
     Layout = "~/Areas/Admin/Views/Shared/AdminLayout/Layout.cshtml";
 }
-
-<div id="GetAllUser">
-    @{Html.RenderAction("GetAllUserForAdmin", "Admin", new { page = 1 }); }
+<div id="manageUser">
+    @{ Html.RenderAction("GetUserForManageUser", "Admin", new { page = 1, Area = "Admin" });}
 </div>

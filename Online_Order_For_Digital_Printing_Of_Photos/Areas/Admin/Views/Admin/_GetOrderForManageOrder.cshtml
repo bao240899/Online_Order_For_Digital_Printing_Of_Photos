@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.Cart.OrdersModelView>
+@using PagedList.Mvc
+
+<table class="table">
+    <tr>
+        <th>OrderID</th>
+        <th>UserID</th>
+        <th>Order Code</th>
+        <th>Order Day</th>
+        <th>Total Price</th>
+        <th>payment Method</th>
+        <th>Delivery Address</th>
+        <th>Order Status</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @{string temp = "paid";
+                string paymentMethod = "PayPal";
+            }
+            @if (item.orderStatus == 0)
+            {
+                temp = "wait";
+            }
+            @if (item.orderStatus == 2)
+            {
+
+                temp = "fail";
+            }
+
+            <td>
+                @Html.DisplayFor(modelItem => item.orderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalPrice)
+            </td>
+            @if (item.paymentMethod == 1)
+            {
+                paymentMethod = "PayPal";
+            }
+            <td>
+                @Html.DisplayFor(modelItem => paymentMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.deliveryAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => temp)
+            </td>
+            <td>
+                @if (item.orderStatus == 1)
+                {
+                    <div>
+                        @Html.ActionLink("Cancel", "CancelOrder", new { id = item.orderCode }) |
+                        @Html.ActionLink("Details", "DetailOrder", new { id = item.orderID })
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        @Html.ActionLink("Details", "DetailOrder", new { id = item.orderID })
+                    </div>
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="next" style="text-align:center">
+    @Html.PagedListPager(Model, page => Url.Action("GetOrderForManageOrder", new { page }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+    {
+        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+        DisplayLinkToLastPage = PagedListDisplayMode.Never,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,
+        DisplayLinkToIndividualPages = false,
+        DisplayItemSliceAndTotal = true,
+        ItemSliceAndTotalFormat = "Showing {0} to {1} of {2} orders."
+    },
+    new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "GetOrderForManageOrder" }))
+</div>

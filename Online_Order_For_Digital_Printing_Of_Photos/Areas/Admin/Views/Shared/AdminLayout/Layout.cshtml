@@ -6,7 +6,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Dashboard Admin</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <meta name="keywords" content="HTML5 Admin Template" />
@@ -44,17 +44,17 @@
 
     <!-- Head Libs -->
     <script src="~/Content/assets/vendor/modernizr/modernizr.js"></script>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-
 </head>
 <body>
     <section class="body">
         @Html.Partial("~/Areas/Admin/Views/Shared/AdminLayout/Header.cshtml")
         <div class="inner-wrapper">
             @Html.Partial("~/Areas/Admin/Views/Shared/AdminLayout/Sidebar.cshtml")
-            @RenderBody()
+            <section role="main" class="content-body">
+                @RenderBody()
+            </section>
         </div>
 
     </section>
@@ -105,9 +105,6 @@
     <!-- Theme Initialization Files -->
     <script src="~/Content/assets/javascripts/theme.init.js"></script>
 
-    @* ckfinder *@
-    <script src="~/Content/ckfinder/ckfinder.js"></script>
-    @*<script src="~/Scripts/main.js"></script>*@
 
     <!-- Examples -->
     <script src="~/Content/assets/javascripts/dashboard/examples.dashboard.js"></script>

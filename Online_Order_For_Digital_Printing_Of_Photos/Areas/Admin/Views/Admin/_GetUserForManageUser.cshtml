@@ -1,29 +1,14 @@
 ﻿@model PagedList.IPagedList<Online_Order_For_Digital_Printing_Of_Photos.Areas.Admin.Models.ManagerUserModelView>
 @using PagedList.Mvc
 
-<table class="table table-bordered table-striped table-condensed mb-none">
+<table class="table">
     <tr>
-        <th>
-            ID
-        </th>
-        <th>
-            UserName
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            Address
-        </th>
-        <th>
-            Status
-        </th>
-        <th>
-            Role
-        </th>
-        <th>
-            Name
-        </th>
+        <th>UserName</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Status</th>
+        <th>Role</th>
+        <th>Name</th>
         <th>Action</th>
     </tr>
 
@@ -35,9 +20,6 @@
             {
                 temp = "enable";
             }
-            <td>
-                @Html.HiddenFor(modelItem => item.userID)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.userName)
             </td>
@@ -62,15 +44,16 @@
                 {
                     temp = "enable";
                 }
-                @Html.ActionLink(temp, "ChangeStatus", new { id = item.userID }) 
+                @Html.ActionLink(temp, "ChangeStatus", new { id = item.userID }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
 
             </td>
         </tr>
     }
-
 </table>
-@Html.PagedListPager(Model, page => Url.Action("GetAllUserForAdmin", new { page }),
+
+<div class="next" style="text-align:center">
+    @Html.PagedListPager(Model, page => Url.Action("GetUserForManageUser", new { page }),
     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
     {
         DisplayLinkToFirstPage = PagedListDisplayMode.Never,
@@ -79,6 +62,7 @@
         DisplayLinkToNextPage = PagedListDisplayMode.Always,
         DisplayLinkToIndividualPages = false,
         DisplayItemSliceAndTotal = true,
-        ItemSliceAndTotalFormat = "Showing {0} to {1} of {2} photos."
+        ItemSliceAndTotalFormat = "Showing {0} to {1} of {2} users."
     },
-    new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "GetAllUser" }))
+    new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "ManagerUser" }))
+</div>

@@ -1,0 +1,10 @@
+﻿@model PagedList.IPagedList<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.PhotoModel>
+
+@{
+    ViewBag.Title = "ManagerPhoto";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout/Layout.cshtml";
+}
+
+<div id="GetDataForManagePhoto">
+    @{ Html.RenderAction("GetDataForManagephoto", "Admin", new { page = 1, Area = "Admin" });}
+</div>

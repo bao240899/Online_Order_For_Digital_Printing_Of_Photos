@@ -1,30 +1,19 @@
-﻿@model PagedList.IPagedList<Online_Order_For_Digital_Printing_Of_Photos.Areas.Admin.Models.ManagerUserModelView>
+﻿@model PagedList.IPagedList<Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.PhotoModel>
 @using PagedList.Mvc
 
-<table class="table table-bordered table-striped table-condensed mb-none">
+
+
+<table class="table">
     <tr>
-        <th>
-            ID
-        </th>
-        <th>
-            UserName
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            Address
-        </th>
-        <th>
-            Status
-        </th>
-        <th>
-            Role
-        </th>
-        <th>
-            Name
-        </th>
-        <th>Action</th>
+        <th>PhotoID</th>
+        <th>PhotoName</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Category</th>
+        <th>Url</th>
+        <th>Format</th>
+        <th>Price</th>
+        <th>Actions</th>
     </tr>
 
     @foreach (var item in Model)
@@ -36,25 +25,28 @@
                 temp = "enable";
             }
             <td>
-                @Html.HiddenFor(modelItem => item.userID)
+                @Html.DisplayFor(modelItem => item.photoID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.userName)
+                @Html.DisplayFor(modelItem => item.photoName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.address)
+                @Html.DisplayFor(modelItem => item.description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => temp)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.role)
+                @Html.DisplayFor(modelItem => item.cateID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.name)
+                @Html.DisplayFor(modelItem => item.photoLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.formatID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 @{temp = "disabled";}
@@ -62,15 +54,15 @@
                 {
                     temp = "enable";
                 }
-                @Html.ActionLink(temp, "ChangeStatus", new { id = item.userID }) 
+                @Html.ActionLink(temp, "ChangeStatus", new { id = item.photoID }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
-
             </td>
         </tr>
     }
 
 </table>
-@Html.PagedListPager(Model, page => Url.Action("GetAllUserForAdmin", new { page }),
+<div class="next" style="text-align:center">
+    @Html.PagedListPager(Model, page => Url.Action("GetDataForManagephoto", new { page }),
     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
     {
         DisplayLinkToFirstPage = PagedListDisplayMode.Never,
@@ -81,4 +73,5 @@
         DisplayItemSliceAndTotal = true,
         ItemSliceAndTotalFormat = "Showing {0} to {1} of {2} photos."
     },
-    new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "GetAllUser" }))
+    new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "GetDataForManagePhoto" }))
+</div>
