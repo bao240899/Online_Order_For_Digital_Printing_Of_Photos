@@ -72,7 +72,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
                 formatID = x.formatID
             }).ToList();
             return res;
-
         }
 
         public IEnumerable<Photos> GetPhoto(int page, int pageSize)
@@ -101,9 +100,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
                 ID = gr.Key.ID,
                 photoName = gr.Key.photoName
             }).ToList();
-
             return res;
-
         }
 
         public List<ViewUserPhotoModel> GetPhotoByUserid(int userid)
@@ -129,16 +126,18 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             return db.Photos.Find(id);
         }
 
-        public void update(Photos photo)
-        {
-
-        }
-
         public void Insert(Photos photo)
         {
             db.Photos.Add(photo);
             db.SaveChanges();
         }
+
+
+        //public void edit(Photos photo)
+        //{
+        //    db.Photos.Add(photo);
+        //    db.SaveChanges();
+        //}
         ///////////////////////
         public PhotoModelView GetPhotoByPhotoID(int photoID)
         {
