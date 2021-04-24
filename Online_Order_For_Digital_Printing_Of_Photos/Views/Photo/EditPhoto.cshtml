@@ -1,0 +1,124 @@
+﻿@model Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.PhotoModel
+@using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
+
+@{
+    ViewBag.Title = "EditPhoto";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+    var cate = new CateDAO().GetAllCategory();
+    var format = new formatDAO().GetAllFormat();
+}
+
+@using (Html.BeginForm("EditPhoto", "Photo", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal form-bordered" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h1 style="text-align: center;">Edit Photo: @Model.photoName</h1>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.photoID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.photoName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.photoName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.photoName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.status)
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cateID, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                @*@Html.EditorFor(model => model.cateID, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.cateID, "", new { @class = "text-danger" })
+                <select name="categories">
+                    @foreach (var item in cate)
+                    {
+                        if (item.cateID == Model.cateID)
+                        {
+                            <option value="@item.cateID" selected="selected">@item.cateName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.cateID">@item.cateName</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.photoLink, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.photoLink, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                <div style="width:100%; height:100%; margin: 1% auto;">
+                    <img src="@Model.photoLink" alt="Photo @Model.photoName" />
+                </div>
+                @Html.ValidationMessageFor(model => model.photoLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.formatID, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                @*@Html.EditorFor(model => model.formatID, new { htmlAttributes = new { @class = "form-control" } })*@
+                @foreach (var item in format)
+                {
+                    if (Model.formatID == item.formatID)
+                    {
+                        <input class="form-control" type="text" name="@item.formatName" value="@item.formatName" readonly />
+                    }
+                }
+                @Html.ValidationMessageFor(model => model.formatID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.formatID)
+        @Html.HiddenFor(model => model.ID)
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-8" style="text-align:center">
+                <input type="submit" value="Update" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "MyPhoto", "User")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -145,6 +145,25 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
             return View("CreatePhoto");
         }
 
+        [HttpGet]
+        public ActionResult EditPhoto(int photoid)
+        {
+            var model = new PhotoDAO().EditPhotoByPhotoId(photoid);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditPhoto(Photos photo)
+        {
+            var pt = new PhotoDAO();
+            int cateid = Convert.ToInt32(Request.Form["categories"]);
+            photo.cateID = cateid;
+
+            pt.EditPhoto(photo);
+            SetAlert("Edit Photo Success", "success");
+            return Redirect("~/User/Myphoto");
+        }
+
         //Hàm resize hình ảnh
         public bool SaveResizeImage(Image img, int width, int height, string path)
         {
