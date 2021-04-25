@@ -1,5 +1,6 @@
 ﻿@model PagedList.IPagedList<Online_Order_For_Digital_Printing_Of_Photos.Models.Entities.Photos>
 @using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +8,7 @@
     var cate = new CateDAO().GetAllCategory();
 }
 
-<div class="class=" theme-layout"">
+<div class="theme-layout">
     <section>
         <div class="block no-padding">
             <div class="row">
@@ -37,16 +38,17 @@
         </div>
     </section>
 
-    <section style="margin-top: 1%">
-        <div class="block remove-gap">
-            <div class="row ">
-                <div class="col-md-12 column">
+
+    <section style="margin: 2% auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
                     <div class="title center">
                         <h2>Top Categories</h2>
                         <i>You can select from the key</i>
                     </div>
 
-                    <div class="option-combo" style="margin-bottom: 1%">
+                    <div class="option-combo" style="margin-bottom: 4%">
                         <ul id="filter" class="option-set" data-option-key="filter">
                             <li><a href="~/Home/Photos" class="selected">Show all</a></li>
                             <li><a href="#category1" data-option-value=".category1">Photos</a></li>
@@ -57,28 +59,31 @@
                         </ul>
                     </div><!-- FILTER BUTTONS -->
 
-                    <div class="row narrow">
-                        <div class="masonary">
+                    <div class="images-list">
+                        <div class="row scroll" data-ui="jscroll-default">
                             @foreach (var item in Model)
                             {
-
                                 <div class="col-md-3">
-                                    <div class="image-box">
-                                        @* 384x282 *@
-                                        <a href="~/Home/DetailPhoto/@item.ID" title="@item.photoName"><img src="@item.photoLink" alt="Photo" height="282" /></a>
-                                        <span class="image-name">
-                                            <a href="~/Home/DetailPhoto/@item.ID" class="list-unstyled" style="color:#ffffff">@item.photoName</a>
-                                        </span>
-                                        @foreach (var x in cate)
-                                        {
-                                            if (x.cateID == item.cateID)
+                                    <div class="image-download">
+                                        <a href="~/Home/DetailPhoto/@item.ID">
+                                            <img src="@item.photoLink" alt="Photo" height="278" />
+                                        </a>
+                                        <div class="image-bar">
+                                            <div class="cat"><a href="~/Home/DetailPhoto/@item.ID" title="">@item.photoName</a></div>
+                                            @*<span>12 Credits</span>*@
+                                        </div>
+                                        <div class="image-bar bottom">
+                                            <div class="image-links">
+                                                <a href="~/Home/DetailPhoto/@item.ID" title=""><i class="fa fa-shopping-cart"></i></a>
+                                                <a href="~/Home/DetailPhoto/@item.ID" title=""><i class="fa fa-heart"></i></a>
+                                            </div>
+                                            @foreach (var x in cate)
                                             {
-                                                <span class="image-license"> @x.cateName </span>
+                                                if (x.cateID == item.cateID)
+                                                {
+                                                    <span class="image-license"> @x.cateName </span>
+                                                }
                                             }
-                                        }
-                                        <div class="image-links">
-                                            <a href="~/Cart/AddItem?photoID=@item.photoID" title=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" title=""><i class="fa fa-heart"></i></a>
                                         </div>
                                     </div>
                                 </div>

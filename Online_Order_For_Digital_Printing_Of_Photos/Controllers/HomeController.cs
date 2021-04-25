@@ -19,7 +19,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
             photoDAO = new PhotoDAO();
         }
 
-        public ActionResult Index(int page = 1, int pageSize = 20)
+        public ActionResult Index(int page = 1, int pageSize = 28)
         {
             var model = photoDAO.GetPhoto(page, pageSize);
             return View(model);
@@ -35,6 +35,13 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
             int pageSize = 24;
             int pageNumber = (page ?? 1);
             return PartialView("_GetDataPhotoForPhotos", new PhotoDAO().GetPhotoForPhotos().ToPagedList(pageNumber, pageSize));
+        }
+        
+        public PartialViewResult GetPhotoByCateIdForPhotos(int? page, int catid)
+        {
+            int pageSize = 24;
+            int pageNumber = (page ?? 1);
+            return PartialView("_GetPhotoByCateIdForPhotos", new PhotoDAO().GetPhotoByCateIdForPhotos(catid).ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult DetailPhoto(string id)

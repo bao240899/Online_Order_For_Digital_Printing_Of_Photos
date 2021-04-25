@@ -132,8 +132,23 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             {
                 photoLink = gr.Key.photoLink,
                 ID = gr.Key.ID,
-                photoName = gr.Key.photoName
+                photoName = gr.Key.photoName,
+                cateID = gr.Key.cateID
             }).ToList();
+            return res;
+        }
+
+        public IEnumerable<Photos> GetPhotoByCateIdForPhotos(int cateid)
+        {
+            List<Photos> photo = db.Photos.ToList();
+
+            var res = photo.OrderBy(x => x.ID).GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
+            {
+                photoLink = gr.Key.photoLink,
+                ID = gr.Key.ID,
+                photoName = gr.Key.photoName,
+                cateID = gr.Key.cateID
+            }).Where(x => x.cateID == cateid).ToList();
             return res;
         }
 

@@ -21,16 +21,18 @@
                 <div class="filteration">
                     <ul class="col-md-8">
                         <li class=""><a href="~/Home/Photos" title=""><i class="fa fa-bolt"></i><label style="cursor: pointer">All Photos</label></a></li>
-                        @using (Html.BeginForm("ImgList", "Image", FormMethod.Post))
+                        @foreach (var item in cate)
                         {
-                            @Html.AntiForgeryToken()
-                            foreach (var item in cate)
+                            using (Html.BeginForm("ImgList", "Image", FormMethod.Post, new { cateid = item.cateID }))
                             {
+                                @Html.AntiForgeryToken()
+
                                 <li>
                                     <i class="far fa-dot-circle"></i>
                                     <label for="@item.cateID" style="cursor: pointer">@item.cateName</label>
                                     <input type="submit" value="@item.cateID" name="cateID" id="@item.cateID" hidden />
                                 </li>
+
                             }
                         }
                     </ul>
@@ -62,8 +64,8 @@
                                 </div>
                                 <div class="image-bar bottom">
                                     <div class="image-links">
-                                        <a href="~/Cart/AddItem?photoID=@item.photoID" title=""><i class="fa fa-shopping-cart"></i></a>
-                                        <a href="#" title=""><i class="fa fa-heart"></i></a>
+                                        <a href="~/Home/DetailPhoto/@item.ID" title=""><i class="fa fa-shopping-cart"></i></a>
+                                        <a href="~/Home/DetailPhoto/@item.ID" title=""><i class="fa fa-heart"></i></a>
                                     </div>
                                     @foreach (var x in cate)
                                     {
@@ -76,14 +78,9 @@
                             </div>
                             <!-- Image -->
                         </div>
-
                     }
 
                     <div class="next">
-
-                        @*@Html.PagedListPager(Model, page => Url.Action("GetPhotoForPhotos", new { page }),
-                            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "GetDataPhotoForPhotos" }))*@
-
                         @Html.PagedListPager(Model, page => Url.Action("GetPhotoForPhotos", new { page }),
                        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
                         {
