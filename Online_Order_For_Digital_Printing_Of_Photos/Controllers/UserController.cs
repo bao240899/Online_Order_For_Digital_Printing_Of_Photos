@@ -150,9 +150,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         {
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
             if (session == null)
-            {
                 return Redirect("~/User/Login");
-            }
             else
             {
                 var rs = userDao.GetUserById(session.userID);
@@ -223,13 +221,9 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         {
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
             if (session == null)
-            {
                 return Redirect("~/User/Login");
-            }
             else
-            {
                 return View();
-            }
         }
 
         public PartialViewResult GetForMyPhoto(int? page)
@@ -244,9 +238,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         {
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
             if (session == null)
-            {
                 return Redirect("~/User/Login");
-            }
             else
             {
                 var model = new OrderDao().GetOrderByUserID(session.userID);
@@ -257,25 +249,21 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         {
             var session = (UserSession)Session[CommonConstant.USER_SESSION];
             if (session == null)
-            {
                 return Redirect("~/User/Login");
-            }
             else
             {
                 UserSession user = (UserSession)Session[CommonConstant.USER_SESSION];
                 var rs = orderDao.GetPhotoDownLoadedByUserid(user.userID);
                 if (rs != null)
-                {
                     return View(rs);
-                }
                 else
                 {
                     SetAlert("You don't have any photos to download yet!!! ", "warning");
                     return Redirect("~/User/AccountDetail");
                 }
-                
+
             }
-            
+
         }
     }
 }

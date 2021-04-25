@@ -185,7 +185,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
             }
             SetAlert("Download Photo Success.", "success");
             return Redirect("~/User/DownLoadedPhoto");
-
         }
     }
 }

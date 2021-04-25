@@ -22,7 +22,10 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         public ActionResult Index(int page = 1, int pageSize = 20)
         {
             var model = photoDAO.GetPhoto(page, pageSize);
-            return View(model);
+            if (model != null)
+                return View(model);
+            else
+                return Redirect("~/Home/NotFound");
         }
 
         public ActionResult Photos()
@@ -41,13 +44,14 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         {
             var model = new PhotoDAO().GetPhotoByID(id);
             if (model == null || id == null)
-            {
-                return Redirect("~/Home/Photos");
-            }
+                return Redirect("~/Home/NotFound");
             else
-            {                
                 return View(model);
-            }
+        }
+
+        public ActionResult NotFound()
+        {
+            return View();
         }
     }
 }
