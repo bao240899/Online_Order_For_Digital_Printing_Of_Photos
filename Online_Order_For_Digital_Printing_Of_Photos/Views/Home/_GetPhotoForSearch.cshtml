@@ -1,9 +1,6 @@
 ﻿@model PagedList.IPagedList<Online_Order_For_Digital_Printing_Of_Photos.Models.Entities.Photos>
 @using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
 @using PagedList.Mvc
-@using PagedList
-
-@using System.Web.Optimization
 
 @{
     var cate = new CateDAO().GetAllCategory();
@@ -11,42 +8,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="title center">
-            </div>
-            <div class="filter-bar">
-                <div class="grid-select">
-                    <a class="three-col" href="#" title=""><img src="~/Content/OnlineOrderForDigitalrintingOfPhotos/images/three-column.png" alt="" /></a>
-                    <a class="four-col" href="#" title=""><img src="~/Content/OnlineOrderForDigitalrintingOfPhotos/images/four-column.png" alt="" /></a>
-                </div>
-                <div class="filteration">
-                    <ul class="col-md-8">
-                        <li class=""><a href="~/Home/Photos" title=""><i class="fa fa-bolt"></i><label style="cursor: pointer">All Photos</label></a></li>
-                        @foreach (var item in cate)
-                        {
-                            using (Html.BeginForm("", "", null))
-                            {
-                                @Html.AntiForgeryToken()
-
-                                <li>
-                                    <i class="far fa-dot-circle"></i>
-                                    <label for="@item.cateID" style="cursor: pointer">@item.cateName</label>
-                                    <input type="submit" value="@item.cateID" name="cateID" id="@item.cateID" hidden />
-                                </li>
-                            }
-                        }
-                    </ul>
-                    <div class="pages">
-                        <span>
-                            Page
-                            <i>
-                                @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-                            </i> of @Model.PageCount
-                            @*in @Model.TotalItemCount Photos*@
-                        </span>
-                    </div>
-                </div>
-
-            </div>
+            <h1 class="title center">
+                Results
+            </h1>
 
             <div class="images-list">
                 <div class="row scroll" data-ui="jscroll-default">
@@ -59,7 +23,6 @@
                                 </a>
                                 <div class="image-bar">
                                     <div class="cat"><a href="~/Home/DetailPhoto/@item.ID" title="">@item.photoName</a></div>
-                                    @*<span>12 Credits</span>*@
                                 </div>
                                 <div class="image-bar bottom">
                                     <div class="image-links">
@@ -75,9 +38,7 @@
                                     }
                                 </div>
                             </div>
-                            <!-- Image -->
                         </div>
-
                     }
 
                     <div class="next">

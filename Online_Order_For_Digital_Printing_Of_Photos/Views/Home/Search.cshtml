@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Online_Order_For_Digital_Printing_Of_Photos.Models.Entities.Photos>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+}
+
+
+
+<section style="margin-top: 0px">
+    @Html.Partial("~/Views/Shared/UserLayout/_Alert.cshtml")
+    <section>
+        <div class="main-tabber">
+            <div class="custom-content">
+                <div data-id="all-search" class="tab-detail active">
+                    <div class="main-search fadeInUp">
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+                        {
+                            <input type="text" placeholder="Search Here Your Keywords" name="search" style="border: solid">
+                            <button><i class="fa fa-search"></i></button>
+                        }
+                    </div><!-- Main Search -->
+                </div>
+            </div>
+        </div><!-- Welcome Overlay -->
+    </section>
+
+    <div class="block remove-gap" id="GetDataPhotoForPhotos">
+        @{Html.RenderAction("GetPhotoForSearch", "Home", new { page = 1 }); }
+    </div>
+</section>
+
+

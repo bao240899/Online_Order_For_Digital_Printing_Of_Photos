@@ -19,7 +19,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
 
         public List<PhotoModel> GetAllPhotos()
         {
-            var res = db.Photos.Where(x => x.status != 0 || x.status == null).Select(x => new PhotoModel
+            var res = db.Photos.Select(x => new PhotoModel
             {
                 photoID = x.photoID,
                 photoName = x.photoName,
@@ -94,11 +94,28 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
         {
             List<Photos> photo = db.Photos.ToList();
 
-            var res = photo.OrderBy(x => x.ID).GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
+            var res = photo.OrderBy(x => x.ID).GroupBy(c => new { c.ID, c.photoName, c.description, c.photoLink, c.cateID }).Select(gr => new Photos()
             {
-                photoLink = gr.Key.photoLink,
                 ID = gr.Key.ID,
-                photoName = gr.Key.photoName
+                photoName = gr.Key.photoName,
+                description = gr.Key.description,
+                cateID = gr.Key.cateID,
+                photoLink = gr.Key.photoLink,
+            }).ToList();
+            return res;
+        }
+
+        public IEnumerable<Photos> GetPhotoForPhotosByCateId(int cateid)
+        {
+            List<Photos> photo = db.Photos.ToList();
+
+            var res = photo.Where(x => x.cateID == cateid).OrderBy(x => x.ID).GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.description, c.cateID }).Select(gr => new Photos()
+            {
+                ID = gr.Key.ID,
+                photoName = gr.Key.photoName,
+                description = gr.Key.description,
+                cateID = gr.Key.cateID,
+                photoLink = gr.Key.photoLink,
             }).ToList();
             return res;
         }
@@ -132,13 +149,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             db.SaveChanges();
         }
 
-
-        //public void edit(Photos photo)
-        //{
-        //    db.Photos.Add(photo);
-        //    db.SaveChanges();
-        //}
-        ///////////////////////
         public PhotoModelView GetPhotoByPhotoID(int photoID)
         {
             var rs = db.Photos.Where(d => d.photoID == photoID).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).FirstOrDefault();
@@ -166,7 +176,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
         public List<PhotoModelView> ListPhotoByName(string Name)
         {
             string _name = Name;
-            var rs = db.Photos.Where(d=>d.photoName.Contains(_name)).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).ToList();
+            var rs = db.Photos.Where(d => d.photoName.Contains(_name)).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).ToList();
 
             return rs;
         }
@@ -181,9 +191,30 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
         public List<PhotoModelView> ListOrderByPhotoStatus(string PhotoStatus)
         {
             string _PhotoStatus = PhotoStatus;
-           var rs = db.Photos.Where(d => d.status.ToString().Contains(_PhotoStatus)).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).ToList();
+            var rs = db.Photos.Where(d => d.status.ToString().Contains(_PhotoStatus)).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).ToList();
             // no view
             return rs;
+        }
+
+        public IEnumerable<Photos> GetDataForSearch(string search)
+        {
+            List<Photos> pt = db.Photos.ToList();
+            //var res = from photo in pt
+            //          select photo;
+
+            var res = pt.GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID, c.description }).Select(gr => new Photos()
+            {
+                ID = gr.Key.ID,
+                photoName = gr.Key.photoName,
+                description = gr.Key.description,
+                cateID = gr.Key.cateID,
+                photoLink = gr.Key.photoLink
+            });
+            if (!String.IsNullOrEmpty(search))
+            {
+                res = res.Where(s => s.photoName.Contains(search));
+            }
+            return res.ToList();
         }
     }
 }

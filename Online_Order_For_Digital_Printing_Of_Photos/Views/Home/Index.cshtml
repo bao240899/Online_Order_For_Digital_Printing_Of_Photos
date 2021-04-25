@@ -5,6 +5,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
     var cate = new CateDAO().GetAllCategory();
+    var photo = new PhotoDAO().GetAllPhotos();
 }
 
 <div class="class=" theme-layout"">
@@ -18,7 +19,7 @@
                             <div class="info-box">
                                 <i class="fa fa-upload"></i>
                                 <span>Total Photos</span>
-                                <strong>@Model.TotalItemCount</strong>
+                                <strong>@photo.Count()</strong>
                             </div><!-- Info Box -->
                             <div class="info-box">
                                 <i class="fa fa-user"></i>

@@ -22,10 +22,11 @@
             <div class="custom-content">
                 <div data-id="all-search" class="tab-detail active">
                     <div class="main-search fadeInUp">
-                        <form>
-                            <input type="text" placeholder="Search Here Your Keywords">
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+                        {
+                            <input type="text" placeholder="Search Here Your Keywords" name="search">
                             <button><i class="fa fa-search"></i></button>
-                        </form>
+                        }
                     </div><!-- Main Search -->
                 </div>
             </div>
