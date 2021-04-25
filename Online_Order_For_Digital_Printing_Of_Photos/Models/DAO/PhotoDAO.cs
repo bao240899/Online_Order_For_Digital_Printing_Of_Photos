@@ -62,40 +62,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             return res;
         }
 
-        public PhotoModel EditPhotoByPhotoId(int photoid)
-        {
-            //List<Photos> photo = db.Photos.ToList();.Where(c=>c.Key.ID == id) ||GroupBy(c => new { c.ID, c.description, c.photoLink, c.photoName, c.cateID })
-            var res = db.Photos.Select(x => new PhotoModel
-            {
-                photoID = x.photoID,
-                photoName = x.photoName,
-                description = x.description,
-                status = x.status,
-                cateID = x.cateID,
-                photoLink = x.photoLink,
-                formatID = x.formatID,
-                Price = x.Price,
-                ID = x.ID
-            }).FirstOrDefault(x => x.photoID == photoid);
-            return res;
-        }
-
-        public void EditPhoto(Photos photo)
-        {
-            var listPhotoByID = db.Photos.Where(x => x.ID == photo.ID).ToList();
-            var listPhotoByphotoId = db.Photos.FirstOrDefault(x => x.photoID == photo.photoID);
-            listPhotoByphotoId.Price = photo.Price;
-
-            foreach (var item in listPhotoByID)
-            {
-                item.photoName = photo.photoName;
-                item.description = photo.description;
-                item.cateID = photo.cateID;
-                db.SaveChanges();
-            }
-        }
-
-
         public List<PhotoModel> GetFormatIdByID(string id)
         {
             var res = db.Photos.Where(x => x.ID == id).Select(x => new PhotoModel
@@ -112,7 +78,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
         {
             List<Photos> photo = db.Photos.ToList();
 
-            var res = photo.OrderBy(x => x.ID).GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
+            var res = photo.GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
             {
                 ID = gr.Key.ID,
                 photoName = gr.Key.photoName,
@@ -132,23 +98,8 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             {
                 photoLink = gr.Key.photoLink,
                 ID = gr.Key.ID,
-                photoName = gr.Key.photoName,
-                cateID = gr.Key.cateID
+                photoName = gr.Key.photoName
             }).ToList();
-            return res;
-        }
-
-        public IEnumerable<Photos> GetPhotoByCateIdForPhotos(int cateid)
-        {
-            List<Photos> photo = db.Photos.ToList();
-
-            var res = photo.OrderBy(x => x.ID).GroupBy(c => new { c.ID, c.photoName, c.photoLink, c.cateID }).Select(gr => new Photos()
-            {
-                photoLink = gr.Key.photoLink,
-                ID = gr.Key.ID,
-                photoName = gr.Key.photoName,
-                cateID = gr.Key.cateID
-            }).Where(x => x.cateID == cateid).ToList();
             return res;
         }
 
@@ -181,20 +132,16 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             db.SaveChanges();
         }
 
+
+        //public void edit(Photos photo)
+        //{
+        //    db.Photos.Add(photo);
+        //    db.SaveChanges();
+        //}
+        ///////////////////////
         public PhotoModelView GetPhotoByPhotoID(int photoID)
         {
-            var rs = db.Photos.Where(d => d.photoID == photoID).Select(d => new PhotoModelView
-            {
-                photoID = d.photoID,
-                photoName = d.photoName,
-                description = d.description,
-                status = d.status,
-                cateID = d.cateID,
-                photoLink = d.photoLink,
-                formatID = d.formatID,
-                Price = d.Price,
-                ID = d.ID
-            }).FirstOrDefault();
+            var rs = db.Photos.Where(d => d.photoID == photoID).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).FirstOrDefault();
             return rs;
         }
         public int changeStasus(int photoID)
@@ -214,6 +161,29 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
                 return 1;
             }
             return 0;
+        }
+        /////////
+        public List<PhotoModelView> ListPhotoByName(string Name)
+        {
+            string _name = Name;
+            var rs = db.Photos.Where(d=>d.photoName.Contains(_name)).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).ToList();
+
+            return rs;
+        }
+        public List<PhotoModelView> ListOrderByPhotoCode(string PhotoCode)
+        {
+            string _PhotoCode = PhotoCode;
+            var rs = db.Photos.Where(d => d.ID.Contains(_PhotoCode)).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).ToList();
+
+            // no view
+            return rs;
+        }
+        public List<PhotoModelView> ListOrderByPhotoStatus(string PhotoStatus)
+        {
+            string _PhotoStatus = PhotoStatus;
+           var rs = db.Photos.Where(d => d.status.ToString().Contains(_PhotoStatus)).Select(d => new PhotoModelView { photoID = d.photoID, photoName = d.photoName, description = d.description, status = d.status, cateID = d.cateID, photoLink = d.photoLink, formatID = d.formatID, Price = d.Price, ID = d.ID }).ToList();
+            // no view
+            return rs;
         }
     }
 }

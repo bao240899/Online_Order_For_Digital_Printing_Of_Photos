@@ -27,11 +27,16 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         }
         public ActionResult Success()
         {
+            string orderCode= Session["orderCode"].ToString();
+            string PayPalID = Session["PayPalID"].ToString();
             List<CartItemModelView> Cart = (List<CartItemModelView>)Session[CommonConstant.CART_SESSION];
             foreach ( var item in Cart) {
                 photoDAO.changeStasus(item.photo.photoID);
             }
+            orderDao.SetPayPalIDInOrder(orderCode, PayPalID);
             Session[Common.CommonConstant.CART_SESSION] = null;
+            Session["orderCode"] = null;
+            Session["PayPalID"] = null;
             return RedirectToAction("DownLoadedPhoto", "User");
         }
         //work with paypal payment
@@ -124,6 +129,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                         }
                     }
                     Session.Add(guid, createdPayment.id);
+                    Session["PayPalID"] = guid;
                     return Redirect(paypalRedirectUrl);
                 }
                 else

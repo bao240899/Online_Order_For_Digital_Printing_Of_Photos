@@ -81,7 +81,9 @@
                     @Html.DisplayFor(modelItem => item.photo.Price)
                 </td>
                 <td class="text-right">
-                    @Html.ActionLink("Edit", "EditPhoto", new { Controller = "Photo", photoid = item.photo.photoID })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.photo.photoID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.photo.photoID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.photo.photoID })
                 </td>
             </tr>
         }

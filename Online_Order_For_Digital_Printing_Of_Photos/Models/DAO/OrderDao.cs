@@ -34,6 +34,19 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             }
             return 1;
         }
+
+        public int SetPayPalIDInOrder(string _orderCode, string PayPalID)
+        {
+            Orders rs = entities.Orders.Where(d => d.orderCode == _orderCode).FirstOrDefault();
+            rs.PayPalInvoiceID = PayPalID;
+            entities.SaveChanges();
+            if (rs == null)
+            {
+                return 0;
+            }
+            return 1;
+        }
+
         public OrdersModelView GetOrderByOrderCode(string orderCode)
         {
             var rs = entities.Orders.Where(d => d.orderCode == orderCode).Select(d => new OrdersModelView { orderID = d.orderID, userID = d.userID, orderCode = d.orderCode, orderDay = d.orderDay, orderStatus = d.orderStatus, deliveryAddress = d.deliveryAddress, paymentMethod = d.paymentMethod, totalPrice = d.totalPrice }).FirstOrDefault();
@@ -101,49 +114,72 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
         }
         public List<PhotoModelView> GetPhotoDownLoadedByUserid(int userid)
         {
-            var lsOrder = entities.Orders.Where(d => d.userID == userid).Select(d => new OrdersModelView
+            List<Users> lsUser = entities.Users.Where(d=>d.userID==userid).ToList();
+            List<Orders> lsOrder = entities.Orders.ToList();
+            List<OrderDetail> lsOrderDetail = entities.OrderDetail.ToList();
+            List<Photos> LsPhotoModelView = entities.Photos.ToList();
+            var photoRecord = (from user in lsUser
+                               join order in lsOrder on user.userID equals order.userID
+                               join orderDetail in lsOrderDetail on order.orderID equals orderDetail.orderID
+                               join photo in LsPhotoModelView on orderDetail.photoID equals photo.photoID
+                               select new PhotoModelView()
+                               {
+                  
+                                   photoID = photo.photoID,
+                                   photoName = photo.photoName,
+                                   description = photo.description,
+                                   status = photo.status,
+                                   cateID = photo.cateID,
+                                   photoLink = photo.photoLink,
+                                   formatID = photo.formatID,
+                                   Price = photo.Price,
+                                   ID = photo.ID
+                               }).ToList();
+            return photoRecord;
+        }
+        ///////
+        public List<OrdersModelView> ListOrderByDate(DateTime date)
+        {
+            var _date = date.DayOfYear;
+            var Lis = entities.Orders.Select(d => new OrdersModelView { orderID = d.orderID, userID = d.userID, orderCode = d.orderCode, orderDay = d.orderDay, orderStatus = d.orderStatus, deliveryAddress = d.deliveryAddress, paymentMethod = d.paymentMethod, totalPrice = d.totalPrice }).ToList();
+            var rs = new List<OrdersModelView>();
+            foreach (var item in Lis)
             {
-                orderID = d.orderID,
-                userID = d.userID,
-                orderCode = d.orderCode,
-                orderDay = d.orderDay,
-                orderStatus = d.orderStatus,
-                deliveryAddress = d.deliveryAddress,
-                paymentMethod = d.paymentMethod,
-                totalPrice = d.totalPrice
-            }).ToList();
-            List<OrderDetailModelView> lsOrderDetail = new List<OrderDetailModelView>();
-            foreach (var item in lsOrder)
-            {
-                var OrderDetail = entities.OrderDetail.Where(d => d.orderID == item.orderID).Select(d => new OrderDetailModelView
+                DateTime d = (DateTime)item.orderDay;
+                if (d.DayOfYear == _date)
                 {
-                    orderDetailID = d.orderDetailID,
-                    orderID = d.orderID,
-                    photoID = d.photoID,
-                    quantity = d.photoID,
-                }).FirstOrDefault();
-                lsOrderDetail.Add(OrderDetail);
+                    rs.Add(item);
+                }
             }
-            List<PhotoModelView> LsPhoto = new List<PhotoModelView>();
-            foreach (var item in lsOrderDetail)
+            return rs;
+        }
+        public List<OrdersModelView> ListOrderByOrderCode(string OrderCode)
+        {
+            string _OrderCode = OrderCode;
+            var rs = entities.Orders.Where(d => d.orderCode.Contains(_OrderCode)).Select(d => new OrdersModelView { orderID = d.orderID, userID = d.userID, orderCode = d.orderCode, orderDay = d.orderDay, orderStatus = d.orderStatus, deliveryAddress = d.deliveryAddress, paymentMethod = d.paymentMethod, totalPrice = d.totalPrice }).ToList();
+
+            // no view
+            return rs;
+        }
+        public List<OrdersModelView> ListOrderByOrderStatus(string OrderStatus)
+        {
+            string _OrderStatus = OrderStatus;
+            var rs = entities.Orders.Where(d => d.orderStatus.ToString().Contains(_OrderStatus)).Select(d => new OrdersModelView { orderID = d.orderID, userID = d.userID, orderCode = d.orderCode, orderDay = d.orderDay, orderStatus = d.orderStatus, deliveryAddress = d.deliveryAddress, paymentMethod = d.paymentMethod, totalPrice = d.totalPrice }).ToList();
+
+            // no view
+            return rs;
+        }
+        public List<SearchModelView> searches(SearchModelView view)
+        {
+            List<SearchModelView> lis = new List<SearchModelView>();
+            var listOrderByDate= ListOrderByDate((DateTime)view.OrderModelView.orderDay);
+            foreach (var item in listOrderByDate)
             {
-                var photo = entities.Photos.Where(d => d.photoID == item.photoID).Select(d => new PhotoModelView
-                {
-                    ID = d.ID,
-                    photoName = d.photoName,
-                    photoLink = d.photoLink,
-                    photoID = d.photoID,
-                    Price = d.Price,
-                    cateID = d.cateID,
-                    formatID = d.formatID,
-                    description = d.description,
-                    status = d.status
-                }).FirstOrDefault();
-                LsPhoto.Add(photo);
-
+                SearchModelView searchModelView = new SearchModelView();
+                searchModelView.OrderModelView = item;
+                lis.Add(searchModelView);
             }
-
-            return LsPhoto;
+            return lis;
         }
     }
 

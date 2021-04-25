@@ -39,6 +39,11 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
             return res;
         }
 
+        internal object GetFormatById(int? formatID)
+        {
+            throw new NotImplementedException();
+        }
+
 
         //public FormatModel GetFormatById1(int id)
         //{

@@ -56,12 +56,27 @@
                                                 <div class="cart-product">
                                                     <img src="@item.photo.photoLink" alt="" style="width:170px;height:133px;" />
                                                     <div class="cart-product-detail">
-                                                        <h4><a href="single-page.html" title="">@item.photo.photoName</a></h4>
+                                                        <h4><a href="@Url.Action("DetailPhoto","Home", new {ID= item.photo.ID})" title="">@item.photo.photoName</a></h4>
                                                         <span class="img-id">image id: <i>@item.photo.ID</i></span>
                                                         <div class="selectbox">
                                                             <i>Image Size:</i>
                                                             <select class="select">
-                                                                <option>4745 × 3434 px – $@item.photo.Price</option>
+                                                                @{ 
+                                                                    var size = "100 x 100 px";
+                                                                    if (item.photo.formatID == 2)
+                                                                    {
+                                                                        size = "200 x 200 px";
+                                                                    }
+                                                                    if (item.photo.formatID == 3)
+                                                                    {
+                                                                        size = "300 x 300 px";
+                                                                    }
+                                                                    if (item.photo.formatID == 4)
+                                                                    {
+                                                                        size = "400 x 400 px";
+                                                                    }
+                                                                }
+                                                                <option>@size – $@item.photo.Price</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -104,6 +119,9 @@
                                 {
                                     <a class="theme-btn" style="margin-left: 95px;" data-letters="Login To Checkout" href=~/User/Login title="">Login To Checkout</a>
                                 }
+                                else if(ViewBag.Cart == null ||ViewBag.Cart.Count == 0) {
+                                    <a class="theme-btn" style="margin-left: 95px;" data-letters="shoping To Checkout" href=~/Home/ title="">shoping To Checkout</a>
+                                }
                                 else
                                 {
                                     using (Html.BeginForm("AddOrder", "Cart", FormMethod.Post, new { }))
@@ -144,7 +162,7 @@
                                                     @Html.LabelFor(model => model.deliveryAddress, htmlAttributes: new { @class = "control-label col-md-2", @Style = "width: 100%;" })
                                                     <div class="field">
                                                         <i class="fas fa-address-card"></i>
-                                                        @Html.TextBoxFor(model => model.deliveryAddress, new { @class = "form-control", @Value = "abc", @placeholder = "address", @style = "margin-left: 10px;" })
+                                                        @Html.TextBoxFor(model => model.deliveryAddress, new { @class = "form-control", @Value = "none", @placeholder = "address", @style = "margin-left: 10px;" })
                                                         @Html.ValidationMessageFor(model => model.deliveryAddress, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>

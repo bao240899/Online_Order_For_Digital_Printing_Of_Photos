@@ -1,6 +1,5 @@
 ﻿@model PagedList.IPagedList<Online_Order_For_Digital_Printing_Of_Photos.Models.Entities.Photos>
 @using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
-@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Index";
@@ -8,7 +7,7 @@
     var cate = new CateDAO().GetAllCategory();
 }
 
-<div class="theme-layout">
+<div class="class=" theme-layout"">
     <section>
         <div class="block no-padding">
             <div class="row">
@@ -38,17 +37,16 @@
         </div>
     </section>
 
-
     <section style="margin: 2% auto">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
+            <div class="row ">
+                <div class="col-md-12 column">
                     <div class="title center">
                         <h2>Top Categories</h2>
                         <i>You can select from the key</i>
                     </div>
 
-                    <div class="option-combo" style="margin-bottom: 4%">
+                    <div class="option-combo" style="margin-bottom: 1%">
                         <ul id="filter" class="option-set" data-option-key="filter">
                             <li><a href="~/Home/Photos" class="selected">Show all</a></li>
                             <li><a href="#category1" data-option-value=".category1">Photos</a></li>
@@ -59,7 +57,7 @@
                         </ul>
                     </div><!-- FILTER BUTTONS -->
 
-                    <div class="images-list">
+                    <div class="images-list" style="margin: 3% auto 1% auto">
                         <div class="row scroll" data-ui="jscroll-default">
                             @foreach (var item in Model)
                             {

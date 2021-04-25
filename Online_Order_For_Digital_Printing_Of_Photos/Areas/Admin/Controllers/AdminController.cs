@@ -86,5 +86,15 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Areas.Admin.Controllers
             }
             return RedirectToAction("ManagerUser", "Admin");
         }
+        public ActionResult ChangeStatusPhoto(int id)
+        {
+            var rs = PhotoDAO.changeStasus(id);
+            if (rs == 0)
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            return RedirectToAction("ManagerPhoto", "Admin");
+        }
+
     }
 }

@@ -109,14 +109,16 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                                         string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "images");
                                         bool isExists = System.IO.Directory.Exists(pathString);
                                         if (!isExists) System.IO.Directory.CreateDirectory(pathString);
+                                        var originalPath = string.Format("{0}\\{1}", pathString, file.FileName);
                                         var path = string.Format("{0}\\{1}", pathString, String.Concat("(" + item.width + "x" + item.height + ")", file.FileName));
                                         string newFileName = file.FileName;
                                         //lấy đường dẫn lưu file sau khi kiểm tra tên file trên server có tồn tại hay không
-                                        var newPath = GetNewPathForDupes(path, ref newFileName);
+                                        //var newPath = GetNewPathForDupes(path, ref newFileName);
                                         string serverPath = string.Format("/{0}/{1}/{2}", "Photos", "images", newFileName);
                                         //Lưu hình ảnh đã Resize
-                                        SaveResizeImage(Image.FromStream(file.InputStream), widthResize, heightResize, newPath);
-                                        fileNames.Add("LocalPath: " + newPath + "<br/>ServerPath: " + serverPath);
+                                        SaveResizeImage(Image.FromStream(file.InputStream), widthResize, heightResize, path);
+                                        SaveResizeImage(Image.FromStream(file.InputStream), widthResize, heightResize, originalPath);
+                                        fileNames.Add("LocalPath: " + path + "<br/>ServerPath: " + serverPath);
 
                                         photo.formatID = formatid;
                                         photo.Price = price;
@@ -143,25 +145,6 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                 return Redirect("~/User/MyPhoto");
             }
             return View("CreatePhoto");
-        }
-
-        [HttpGet]
-        public ActionResult EditPhoto(int photoid)
-        {
-            var model = new PhotoDAO().EditPhotoByPhotoId(photoid);
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult EditPhoto(Photos photo)
-        {
-            var pt = new PhotoDAO();
-            int cateid = Convert.ToInt32(Request.Form["categories"]);
-            photo.cateID = cateid;
-
-            pt.EditPhoto(photo);
-            SetAlert("Edit Photo Success", "success");
-            return Redirect("~/User/Myphoto");
         }
 
         //Hàm resize hình ảnh
@@ -193,7 +176,16 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
         {
             var image = new PhotoDAO().getphotofordownload(id);
             var imgPath = Server.MapPath(image.photoLink);
-            return File(imgPath, "image/jpg", image.photoName + ".jpg");
+            string FileName = Path.GetFileName(imgPath);
+            var format = new formatDAO().GetFormatById((int)image.formatID);
+            foreach (var item in format)
+            {
+                string serverPath = string.Format("/{0}/{1}/{2}", "Photos", "images", String.Concat("(" + item.width + "x" + item.height + ")", FileName));
+                return File(serverPath, "image/jpg", String.Concat("(" + item.width + "x" + item.height + ")", image.photoName) + ".jpg");
+            }
+            SetAlert("Download Photo Success.", "success");
+            return Redirect("~/User/DownLoadedPhoto");
+
         }
     }
 }
