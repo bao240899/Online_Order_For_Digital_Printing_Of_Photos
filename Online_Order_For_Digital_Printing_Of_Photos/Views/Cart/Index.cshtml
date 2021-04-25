@@ -1,8 +1,10 @@
 ﻿@model Online_Order_For_Digital_Printing_Of_Photos.Models.ModelViews.Cart.OrdersModelView
+@using Online_Order_For_Digital_Printing_Of_Photos.Models.DAO
 @using Online_Order_For_Digital_Printing_Of_Photos.Common
 @{
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/UserLayout/_Layout.cshtml";
+    var format = new formatDAO().GetAllFormat();
 }
 
 <div>
@@ -61,22 +63,13 @@
                                                         <div class="selectbox">
                                                             <i>Image Size:</i>
                                                             <select class="select">
-                                                                @{ 
-                                                                    var size = "100 x 100 px";
-                                                                    if (item.photo.formatID == 2)
+                                                                @foreach (var x in format)
+                                                                {
+                                                                    if (x.formatID == item.photo.formatID)
                                                                     {
-                                                                        size = "200 x 200 px";
-                                                                    }
-                                                                    if (item.photo.formatID == 3)
-                                                                    {
-                                                                        size = "300 x 300 px";
-                                                                    }
-                                                                    if (item.photo.formatID == 4)
-                                                                    {
-                                                                        size = "400 x 400 px";
+                                                                        <option>@x.width x @x.height – $@item.photo.Price</option>
                                                                     }
                                                                 }
-                                                                <option>@size – $@item.photo.Price</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -119,7 +112,8 @@
                                 {
                                     <a class="theme-btn" style="margin-left: 95px;" data-letters="Login To Checkout" href=~/User/Login title="">Login To Checkout</a>
                                 }
-                                else if(ViewBag.Cart == null ||ViewBag.Cart.Count == 0) {
+                                else if (ViewBag.Cart == null || ViewBag.Cart.Count == 0)
+                                {
                                     <a class="theme-btn" style="margin-left: 95px;" data-letters="shoping To Checkout" href=~/Home/ title="">shoping To Checkout</a>
                                 }
                                 else

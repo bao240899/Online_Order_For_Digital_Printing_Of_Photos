@@ -119,6 +119,7 @@ namespace Online_Order_For_Digital_Printing_Of_Photos.Controllers
                 var rs = userDao.Register(_user);
                 if (rs == 1)
                 {
+                    SetAlert("Sign Up Successfully!!! ", "success");
                     return RedirectToAction("Login", "User");
                 }
                 else if (rs == 0)
